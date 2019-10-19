@@ -1,0 +1,21 @@
+[Unit]
+Description=Caddy HTTP/2 web server
+Documentation=https://github.com/caddyserver/caddy/wiki/v2:-Documentation
+After=network.target
+
+[Service]
+User=caddy
+Group=caddy
+ExecStartPre=/usr/bin/caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
+ExecStart=/usr/bin/caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile --adapter caddyfile
+TimeoutStopSec=5s
+LimitNOFILE=1048576
+LimitNPROC=512
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target
