@@ -1,5 +1,5 @@
 [Unit]
-Description=Caddy HTTP/2 web server
+Description=Caddy Web Server
 Documentation=https://github.com/caddyserver/caddy/wiki/v2:-Documentation
 After=network.target
 
