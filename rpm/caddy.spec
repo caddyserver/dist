@@ -6,7 +6,7 @@ Name:           caddy
 Version:        2.0.0~beta6
 %global tag     v2.0.0-beta6
 Release:        1%{?dist}
-Summary:        HTTP/2 web server with automatic HTTPS
+Summary:        Web server with automatic HTTPS
 License:        ASL 2.0
 URL:            https://caddyserver.com
 
@@ -32,7 +32,7 @@ Provides:       webserver
 
 
 %description
-Caddy is the HTTP/2 web server with automatic HTTPS.
+Caddy is the web server with automatic HTTPS.
 
 
 %prep
