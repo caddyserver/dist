@@ -6,8 +6,9 @@
 # 2) User named caddy, with a writeable home folder:
 #      $ useradd --system \
 #           --gid caddy \
+#           --create-home \
 #           --home /var/lib/caddy \
-#           --shell /usr/sbin/nologin
+#           --shell /usr/sbin/nologin \
 #           --comment "Caddy web server" \
 #           caddy
 #
