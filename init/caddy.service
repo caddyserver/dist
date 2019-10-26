@@ -1,3 +1,20 @@
+# This service file requires the following:
+#
+# 1) Group named caddy:
+#      $ groupadd --system caddy
+#
+# 2) User named caddy, with a writeable home folder:
+#      $ useradd --system \
+#           --gid caddy \
+#           --home /var/lib/caddy \
+#           --shell /usr/sbin/nologin
+#           --comment "Caddy web server" \
+#           caddy
+#
+# 3) Caddyfile at /etc/caddy/Caddyfile that is
+#    readable by the caddy user
+#
+
 [Unit]
 Description=Caddy Web Server
 Documentation=https://github.com/caddyserver/caddy/wiki/v2:-Documentation
@@ -12,7 +29,6 @@ TimeoutStopSec=5s
 LimitNOFILE=1048576
 LimitNPROC=512
 PrivateTmp=true
-ProtectHome=true
 ProtectSystem=full
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 
