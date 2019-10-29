@@ -3,8 +3,8 @@
 
 Name:           caddy
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_versioning_prereleases_with_tilde
-Version:        2.0.0~beta6
-%global tag     v2.0.0-beta6
+Version:        2.0.0~beta8
+%global tag     v2.0.0-beta8
 Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        ASL 2.0
@@ -130,5 +130,8 @@ fi
 
 
 %changelog
+* Sun Nov 03 2019 Carl George <carl@george.computer> - 2.0.0~beta8-1
+- Update to beta8
+
 * Sat Oct 19 2019 Carl George <carl@george.computer> - 2.0.0~beta6-1
 - Initial Caddy v2 package
