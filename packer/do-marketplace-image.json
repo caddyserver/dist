@@ -2,7 +2,8 @@
     "variables": {
       "token": "{{env `DIGITALOCEAN_TOKEN`}}",
       "image_name": "marketplace-snapshot-{{timestamp}}",
-      "ssh_user": "root"
+      "ssh_user": "root",
+      "caddy_version": null
     },
     "builders": [
       {
@@ -19,6 +20,9 @@
     "provisioners": [
       {
         "type": "shell",
+        "environment_vars": [
+          "CADDY_VERSION={{user `caddy_version`}}"
+        ],
         "scripts": [
           "scripts/00-base.sh",
           "scripts/10-firewall.sh",

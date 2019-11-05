@@ -11,7 +11,8 @@ useradd --system \
 
 chown -R caddy:caddy /var/lib/caddy
 
-wget -O /usr/bin/caddy https://github.com/caddyserver/caddy/releases/download/v2.0.0-beta8/caddy2_beta8_linux_amd64
+VERSION_SLUG=$(echo $CADDY_VERSION | sed 's/-/_/g')
+wget -qO /usr/bin/caddy https://github.com/caddyserver/caddy/releases/download/v${CADDY_VERSION}/caddy${VERSION_SLUG}_linux_amd64
 chmod +x /usr/bin/caddy
 setcap cap_net_bind_service=+ep /usr/bin/caddy
 
