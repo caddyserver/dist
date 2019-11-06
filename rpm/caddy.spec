@@ -3,8 +3,8 @@
 
 Name:           caddy
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_versioning_prereleases_with_tilde
-Version:        2.0.0~beta8
-%global tag     v2.0.0-beta8
+Version:        2.0.0~beta9
+%global tag     v2.0.0-beta9
 Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        ASL 2.0
@@ -12,9 +12,9 @@ URL:            https://caddyserver.com
 
 # In order to build Caddy with version information, we need to import it as a
 # go module.  To do that, we are going to forgo the traditional source tarball
-# and instead use this simple go file.  This method requires that we allow
-# networking in the build environment.
-Source0:        main.go
+# and instead use just this file from upstream.  This method requires that we
+# allow networking in the build environment.
+Source0:        https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/cmd/caddy/main.go
 # Use official resources for config, unit file, and welcome page.
 # https://github.com/caddyserver/dist
 Source1:        https://raw.githubusercontent.com/caddyserver/dist/master/config/Caddyfile
@@ -130,6 +130,10 @@ fi
 
 
 %changelog
+* Wed Nov 06 2019 Carl George <carl@george.computer> - 2.0.0~beta9-1
+- Update to beta9
+- Use upstream main.go file
+
 * Sun Nov 03 2019 Carl George <carl@george.computer> - 2.0.0~beta8-1
 - Update to beta8
 
