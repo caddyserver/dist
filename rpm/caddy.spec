@@ -3,8 +3,8 @@
 
 Name:           caddy
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_versioning_prereleases_with_tilde
-Version:        2.0.0~beta9
-%global tag     v2.0.0-beta9
+Version:        2.0.0~beta10
+%global tag     v2.0.0-beta10
 Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        ASL 2.0
@@ -130,6 +130,9 @@ fi
 
 
 %changelog
+* Tue Nov 19 2019 Carl George <carl@george.computer> - 2.0.0~beta10-1
+- Update to beta10
+
 * Wed Nov 06 2019 Carl George <carl@george.computer> - 2.0.0~beta9-1
 - Update to beta9
 - Use upstream main.go file
