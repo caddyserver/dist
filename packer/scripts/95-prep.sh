@@ -8,3 +8,6 @@ rm -rf /root/.ansible
 # the 90-clean.sh script from https://github.com/digitalocean/marketplace-partners
 # deletes this file, which locks users out. Re-create it.
 touch /etc/ssh/revoked_keys
+
+# chmod as 600 per DO's feedback
+chmod 600 /etc/ssh/revoked_keys

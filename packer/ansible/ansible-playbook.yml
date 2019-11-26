@@ -6,4 +6,4 @@
     - dev-sec.ssh-hardening
   vars:
     ssh_permit_root_login: "without-password"
-    ssh_max_auth_retries: 3
+    ssh_max_auth_retries: 100
