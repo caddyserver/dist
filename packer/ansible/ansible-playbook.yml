@@ -1,0 +1,9 @@
+- hosts: all
+  user: root
+  roles:
+    # TODO (Mohammed90): customize all variables to have full control over its behavior
+    # - dev-sec.os-hardening
+    - dev-sec.ssh-hardening
+  vars:
+    ssh_permit_root_login: "without-password"
+    ssh_max_auth_retries: 100
