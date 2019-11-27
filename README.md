@@ -5,7 +5,7 @@ This repository contains official resources for packaging and distributing [Cadd
 
 Note that packages or distributions which _use_ these resources are not necessarily endorsed by the Caddy project (but the ones listed below are).
 
-## List of official Caddy packages
+## List of official Caddy distributions
 
 These distributions are endorsed and maintained by the Caddy project:
 
