@@ -18,7 +18,7 @@
 
 [Unit]
 Description=Caddy Web Server
-Documentation=https://github.com/caddyserver/caddy/wiki/v2:-Documentation
+Documentation=https://caddyserver.com/docs/
 After=network.target
 
 [Service]
