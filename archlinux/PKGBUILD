@@ -1,0 +1,26 @@
+# Maintainer : Christian Rebischke <chris.rebischke@archlinux.org>
+
+pkgname=caddy
+pkgver=2.0.0beta10
+_pkgver=2.0.0-beta10
+pkgrel=1
+pkgdesc="Powerful, enterprise-ready, open source web server with automatic HTTPS written in Go"
+arch=('x86_64')
+url="https://github.com/caddyserver/caddy"
+license=('Apache')
+makedepends=('go-pie' 'git')
+depends=('glibc')
+source=("${pkgname}-${pkgver}::git+https://github.com/caddyserver/caddy#tag=v${_pkgver}?signed")
+sha512sums=('SKIP')
+validpgpkeys=('29D0817A67156E4F25DC24782A349DD577D586A5')
+
+build() {
+  cd "${pkgname}-${pkgver}/cmd/caddy/"
+  go build -trimpath -ldflags "-extldflags ${LDFLAGS}" -o caddy
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm755 "cmd/caddy/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
