@@ -1,68 +1,67 @@
 {
-    "variables": {
-      "token": "{{env `DIGITALOCEAN_TOKEN`}}",
-      "image_name": "marketplace-snapshot-{{timestamp}}",
-      "ssh_user": "root",
-      "caddy_version": null
-    },
-    "builders": [
-      {
-        "type": "digitalocean",
-        "api_token": "{{user `token`}}",
-        "image": "ubuntu-18-04-x64",
-        "region": "nyc3",
-        "size": "s-1vcpu-1gb",
-        "ssh_username": "root",
-
-        "snapshot_name": "{{user `image_name`}}"
-      }
-    ],
-    "provisioners": [
-      {
-        "type": "shell",
-        "environment_vars": [
-          "CADDY_VERSION={{user `caddy_version`}}"
-        ],
-        "scripts": [
-          "scripts/00-base.sh",
-          "scripts/10-firewall.sh",
-          "scripts/20-caddy.sh"
-        ]
-      },
-      {
-        "type": "file",
-        "source": "../init/caddy.service",
-        "destination": "/etc/systemd/system/caddy.service"
-      },
-      {
-        "type": "file",
-        "source": "files/fail2ban/jail.local",
-        "destination": "/etc/fail2ban/jail.local"
-      },
-      {
-        "type": "file",
-        "source": "../config/Caddyfile",
-        "destination": "/etc/caddy/Caddyfile"
-      },
-      {
-        "type": "file",
-        "source": "../welcome/index.html",
-        "destination": "/usr/share/caddy/index.html"
-      },
-      {
-        "type": "ansible",
-        "user": "{{user `ssh_user`}}",
-        "galaxy_file": "ansible/requirements.yml",
-        "playbook_file": "ansible/ansible-playbook.yml"
-      },
-      {
-        "type": "shell",
-        "scripts": [
-          "scripts/50-services.sh",
-          "scripts/90-cleanup.sh",
-          "scripts/95-prep.sh",
-          "scripts/99-img_check.sh"
-        ]
-      }
-    ]
-  }
+	"variables": {
+		"token": "{{env `DIGITALOCEAN_TOKEN`}}",
+		"image_name": "marketplace-snapshot-{{timestamp}}",
+		"ssh_user": "root",
+		"caddy_version": null
+	},
+	"builders": [
+		{
+			"type": "digitalocean",
+			"api_token": "{{user `token`}}",
+			"image": "ubuntu-18-04-x64",
+			"region": "nyc3",
+			"size": "s-1vcpu-1gb",
+			"ssh_username": "root",
+			"snapshot_name": "{{user `image_name`}}"
+		}
+	],
+	"provisioners": [
+		{
+			"type": "shell",
+			"environment_vars": [
+				"CADDY_VERSION={{user `caddy_version`}}"
+			],
+			"scripts": [
+				"scripts/00-base.sh",
+				"scripts/10-firewall.sh",
+				"scripts/20-caddy.sh"
+			]
+		},
+		{
+			"type": "file",
+			"source": "../init/caddy.service",
+			"destination": "/etc/systemd/system/caddy.service"
+		},
+		{
+			"type": "file",
+			"source": "files/fail2ban/jail.local",
+			"destination": "/etc/fail2ban/jail.local"
+		},
+		{
+			"type": "file",
+			"source": "../config/Caddyfile",
+			"destination": "/etc/caddy/Caddyfile"
+		},
+		{
+			"type": "file",
+			"source": "../welcome/index.html",
+			"destination": "/usr/share/caddy/index.html"
+		},
+		{
+			"type": "ansible",
+			"user": "{{user `ssh_user`}}",
+			"galaxy_file": "ansible/requirements.yml",
+			"playbook_file": "ansible/ansible-playbook.yml"
+		},
+		{
+			"type": "shell",
+			"scripts": [
+				"scripts/50-services.sh",
+				"scripts/90-cleanup.sh",
+				"scripts/95-prep.sh",
+				"scripts/99-img_check.sh"
+			]
+		}
+	]
+}
