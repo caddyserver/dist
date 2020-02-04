@@ -22,4 +22,4 @@ file_server
 # php_fastcgi localhost:9000
 
 # Refer to the Caddy docs for more information:
-# https://github.com/caddyserver/caddy/wiki/v2:-Documentation
+# https://caddyserver.com/docs/caddyfile
