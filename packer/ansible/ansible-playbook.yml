@@ -5,5 +5,8 @@
     # - dev-sec.os-hardening
     - dev-sec.ssh-hardening
   vars:
-    ssh_permit_root_login: "without-password"
+    # Digital Ocean doesn't disable the option, regardless of whether the 
+    # image supports it, so we must enable it.
+    # see: https://caddy.community/t/cannot-sign-in-to-digitalocean-droplet/6963
+    ssh_permit_root_login: "yes"
     ssh_max_auth_retries: 100
