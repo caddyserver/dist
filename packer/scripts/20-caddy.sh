@@ -11,7 +11,7 @@ useradd --system \
 
 chown -R caddy:caddy /var/lib/caddy
 
-VERSION_SLUG=$(echo "$CADDY_VERSION" | sed 's/-/_/g' | sed 's/\.[0-9]*\.[0-9]*//g' | sed 's/v//g')
+VERSION_SLUG=$(echo "$CADDY_VERSION" | sed 's/-/_/g' | sed 's/\.[0-9]*\.[0-9]*//g' | sed 's/v//g' | sed 's/\.//g')
 wget -qO /usr/bin/caddy https://github.com/caddyserver/caddy/releases/download/"${CADDY_VERSION}"/caddy"${VERSION_SLUG}"_linux_amd64
 chmod +x /usr/bin/caddy
 setcap cap_net_bind_service=+ep /usr/bin/caddy
