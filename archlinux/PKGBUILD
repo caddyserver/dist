@@ -1,8 +1,8 @@
 # Maintainer : Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=caddy
-pkgver=2.0.0beta13
-_gitcommit='6614d1c495f3266037d36b4c2f4f70fcc73acad1'
+pkgver=2.0.0beta15
+_gitcommit='e4ec08e977bcc9c798a2fca324c7105040990bcf'
 _distcommit='9e93bfd85c97d71ab842a4a4b555d358295c914e'
 pkgrel=1
 pkgdesc="Powerful, enterprise-ready, open source web server with automatic HTTPS written in Go"
