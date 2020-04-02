@@ -24,7 +24,8 @@ After=network.target
 [Service]
 User=caddy
 Group=caddy
-ExecStart=/usr/bin/caddy run --config /etc/caddy/Caddyfile --resume --environ
+ExecStartPre=/usr/bin/caddy adapt --config /etc/caddy/Caddyfile > .config/caddy/autosave.json
+ExecStart=/usr/bin/caddy run --resume --environ
 ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile
 TimeoutStopSec=5s
 LimitNOFILE=1048576
