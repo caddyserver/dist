@@ -1,10 +1,10 @@
 # This service file requires the following:
 #
-# 1) Group named caddy:
-#      $ groupadd --system caddy
+#   1) Group named caddy:
+#       $ groupadd --system caddy
 #
-# 2) User named caddy, with a writeable home folder:
-#      $ useradd --system \
+#   2) User named caddy, with a writeable home folder:
+#       $ useradd --system \
 #           --gid caddy \
 #           --create-home \
 #           --home-dir /var/lib/caddy \
@@ -12,8 +12,20 @@
 #           --comment "Caddy web server" \
 #           caddy
 #
-# 3) Caddyfile at /etc/caddy/Caddyfile that is
-#    readable by the caddy user
+#   3) Change the ExecStart command below depending on
+#      how you will be using Caddy:
+#       - Add `--config /etc/caddy/Caddyfile` if using
+#         a Caddyfile; customize the path (also in the
+#         ExecReload command) if necessary. Ensure that
+#         the file is readable by the caddy user.
+#       - Add `--resume` if using the API to configure
+#         Caddy; it resumes the last active config,
+#         overriding the --config flag, if present. This
+#         this guarantees config durability in the event
+#         of a system reboot or process restart.
+#
+# (If you are only using Caddy's config API and no config
+# file, you will not need to use ExecReload at all.)
 #
 
 [Unit]
@@ -24,7 +36,7 @@ After=network.target
 [Service]
 User=caddy
 Group=caddy
-ExecStart=/usr/bin/caddy run --config /etc/caddy/Caddyfile --resume --environ
+ExecStart=/usr/bin/caddy run --environ
 ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile
 TimeoutStopSec=5s
 LimitNOFILE=1048576
