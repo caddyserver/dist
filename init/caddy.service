@@ -12,20 +12,13 @@
 #           --comment "Caddy web server" \
 #           caddy
 #
-#   3) Change the ExecStart command below depending on
-#      how you will be using Caddy:
-#       - Add `--config /etc/caddy/Caddyfile` if using
-#         a Caddyfile; customize the path (also in the
-#         ExecReload command) if necessary. Ensure that
-#         the file is readable by the caddy user.
-#       - Add `--resume` if using the API to configure
-#         Caddy; it resumes the last active config,
-#         overriding the --config flag, if present. This
-#         this guarantees config durability in the event
-#         of a system reboot or process restart.
-#
-# (If you are only using Caddy's config API and no config
-# file, you will not need to use ExecReload at all.)
+#   3) Choose and customize one of the ExecStart
+#      commands below, depending on how you will be
+#      using Caddy. Those are just templates/ideas
+#      that will suit most users. Caddy has a very
+#      simple command line interface, and we strongly
+#      recommend learning what the options do:
+#      https://caddyserver.com/docs/command-line
 #
 
 [Unit]
@@ -36,8 +29,27 @@ After=network.target
 [Service]
 User=caddy
 Group=caddy
-ExecStart=/usr/bin/caddy run --environ
-ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile
+
+# Uncomment and customize one of the following options:
+#
+# A) Caddyfile, no API
+# ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile
+# ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile
+#
+# B) JSON config file, no API
+# ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/config.json
+# ExecReload=/usr/bin/caddy reload --config /etc/caddy/config.json
+#
+# C) Other config file type, no API
+# ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/<file> --adapter <name>
+# ExecStart=/usr/bin/caddy reload --config /etc/caddy/<file> --adapter <name>
+#
+# D) API, no config file
+# ExecStart=/usr/bin/caddy run --environ --resume
+#
+# E) API with Caddyfile for bootstrapping only
+# ExecStart=/usr/bin/caddy run --environ --resume --config /etc/caddy/Caddyfile
+
 TimeoutStopSec=5s
 LimitNOFILE=1048576
 LimitNPROC=512
