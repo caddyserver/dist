@@ -42,12 +42,12 @@ Group=caddy
 #
 # C) Other config file type, no API
 # ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/<file> --adapter <name>
-# ExecStart=/usr/bin/caddy reload --config /etc/caddy/<file> --adapter <name>
+# ExecReload=/usr/bin/caddy reload --config /etc/caddy/<file> --adapter <name>
 #
 # D) API, no config file
 # ExecStart=/usr/bin/caddy run --environ --resume
 #
-# E) API with Caddyfile for bootstrapping only
+# E) API, with Caddyfile for bootstrapping only
 # ExecStart=/usr/bin/caddy run --environ --resume --config /etc/caddy/Caddyfile
 
 TimeoutStopSec=5s
