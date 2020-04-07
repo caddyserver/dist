@@ -1,8 +1,8 @@
 # Maintainer : Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=caddy
-pkgver=2.0.0beta15
-_gitcommit='e4ec08e977bcc9c798a2fca324c7105040990bcf'
+pkgver=2.0.0rc1
+_tag=v2.0.0-rc.1
 _distcommit='9e93bfd85c97d71ab842a4a4b555d358295c914e'
 pkgrel=1
 pkgdesc="Powerful, enterprise-ready, open source web server with automatic HTTPS written in Go"
@@ -12,14 +12,14 @@ license=('Apache')
 depends=('glibc')
 makedepends=('go-pie' 'git')
 backup=('etc/caddy/Caddyfile')
-source=("git+https://github.com/caddyserver/caddy#commit=${_gitcommit}?signed"
+source=("git+https://github.com/caddyserver/caddy#tag=${_tag}?signed"
         "caddy-${_distcommit}-index.html::https://raw.githubusercontent.com/caddyserver/dist/${_distcommit}/welcome/index.html"
         'caddy.service'
         'caddy.tmpfiles'
         'Caddyfile')
 sha512sums=('SKIP'
             '7836722155509009cbd8eaf605e2d09a2aefd58a90e5973156ec6363aa5ba2ed6ec30a57d2ee9b4e6e4910d02243ffbed92c366b1eb2076d0da71c2d4f930175'
-            'b1ff442e9972af44ea0560e3a5b8359ec94ce2f692e85c5413ba1b0963cb53159338b578f4cac4f8c445c818de5ef8f5b8a67af2ec6cb7303c475b81028c2e24'
+            '4ce106158354a35d6c77c36486bcb4e849930e25b40d13dc048d82f6827ca14c10aaee882a8971ef05fe1f75db07ee68539a592e85f52fcaef202d9f443290c7'
             'd4a2a415a0fa75fae7aa932030d1dc33f30e964fc425aefbb4c695239ea9de9e025fe2097a6c4af35f95cf908e72db6a60615e24f1e4ad1c7d93a04793bfefb0'
             '245b7de1e6e66642bd35e3e09b04c64323892676f671cdede6e31fabfe1b4c50692686ae14327152c8dcc4306880413450e5ab69f920e20460e01b56a52daf7d')
 validpgpkeys=(
