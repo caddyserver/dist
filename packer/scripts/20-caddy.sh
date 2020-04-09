@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eux;
 
 groupadd --system caddy
 useradd --system \
@@ -11,8 +12,9 @@ useradd --system \
 
 chown -R caddy:caddy /var/lib/caddy
 
-VERSION_SLUG=$(echo "$CADDY_VERSION" | sed 's/-/_/g' | sed 's/\.[0-9]*\.[0-9]*//g' | sed 's/v//g' | sed 's/\.//g')
-wget -qO /usr/bin/caddy https://github.com/caddyserver/caddy/releases/download/"${CADDY_VERSION}"/caddy"${VERSION_SLUG}"_linux_amd64
+VERSION_SLUG=${CADDY_VERSION//v/}
+wget -qO /tmp/caddy.tar.gz https://github.com/caddyserver/caddy/releases/download/"${CADDY_VERSION}"/caddy_"${VERSION_SLUG}"_linux_amd64.tar.gz
+tar -xzf /tmp/caddy.tar.gz -C /usr/bin caddy
 chmod +x /usr/bin/caddy
 setcap cap_net_bind_service=+ep /usr/bin/caddy
 
