@@ -1,30 +1,25 @@
-# This service file requires the following:
+# caddy.service
 #
-# 1) Group named caddy:
-#      $ groupadd --system caddy
+# For using Caddy with a config file.
 #
-# 2) User named caddy, with a writeable home folder:
-#      $ useradd --system \
-#           --gid caddy \
-#           --create-home \
-#           --home-dir /var/lib/caddy \
-#           --shell /usr/sbin/nologin \
-#           --comment "Caddy web server" \
-#           caddy
+# Make sure the ExecStart and ExecReload commands are correct
+# for your installation.
 #
-# 3) Caddyfile at /etc/caddy/Caddyfile that is
-#    readable by the caddy user
-#
+# WARNING: This service does not use the --resume flag, so if you
+# use the API to make changes, they will be overwritten by the
+# Caddyfile next time the service is restarted. If you intend to
+# use Caddy's API to configure it, add the --resume flag to the
+# `caddy run` command or use the caddy-api.service file instead.
 
 [Unit]
-Description=Caddy Web Server
+Description=Caddy
 Documentation=https://caddyserver.com/docs/
 After=network.target
 
 [Service]
 User=caddy
 Group=caddy
-ExecStart=/usr/bin/caddy run --config /etc/caddy/Caddyfile --resume --environ
+ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile
 ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile
 TimeoutStopSec=5s
 LimitNOFILE=1048576
