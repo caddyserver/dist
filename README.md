@@ -10,5 +10,6 @@ Note that packages or distributions which _use_ these resources are not necessar
 These distributions are endorsed and maintained by the Caddy project:
 
 - [GitHub releases](https://github.com/caddyserver/caddy/releases)
+- [Docker](https://hub.docker.com/_/caddy)
 - [Fedora COPR](https://copr.fedorainfracloud.org/coprs/g/caddy/caddy/)
-- [DigitalOcean image](https://marketplace.digitalocean.com/apps/caddy)
+- [DigitalOcean](https://marketplace.digitalocean.com/apps/caddy)
