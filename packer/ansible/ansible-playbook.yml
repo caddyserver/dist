@@ -1,10 +1,11 @@
 - hosts: all
   user: root
   roles:
-    # TODO (Mohammed90): customize all variables to have full control over its behavior
-    # - dev-sec.os-hardening
+    - dev-sec.os-hardening
     - dev-sec.ssh-hardening
   vars:
+    ufw_manage_defaults: false # we're managing the default ufw in scripts/10-firewall.sh
+    os_filesystem_whitelist: "vfat" # the EFI partition is formatted with this filesystem
     # Digital Ocean doesn't disable the option, regardless of whether the 
     # image supports it, so we must enable it.
     # see: https://caddy.community/t/cannot-sign-in-to-digitalocean-droplet/6963
