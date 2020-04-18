@@ -1,10 +1,14 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=995136#c12
 %global _dwz_low_mem_die_limit 0
 
+%global basever 2.0.0
+%global prerel beta
+%global prerelnum 13
+%global tagver v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
+
 Name:           caddy
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_versioning_prereleases_with_tilde
-Version:        2.0.0~beta13
-%global tag     v2.0.0-beta.13
+Version:        %{basever}%{?prerel:~%{prerel}%{prerelnum}}
 Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        ASL 2.0
@@ -14,7 +18,7 @@ URL:            https://caddyserver.com
 # go module.  To do that, we are going to forgo the traditional source tarball
 # and instead use just this file from upstream.  This method requires that we
 # allow networking in the build environment.
-Source0:        https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/cmd/caddy/main.go
+Source0:        https://raw.githubusercontent.com/caddyserver/caddy/%{tagver}/cmd/caddy/main.go
 # Use official resources for config, unit file, and welcome page.
 # https://github.com/caddyserver/dist
 Source1:        https://raw.githubusercontent.com/caddyserver/dist/master/config/Caddyfile
@@ -22,7 +26,7 @@ Source2:        https://raw.githubusercontent.com/caddyserver/dist/master/init/c
 Source3:        https://raw.githubusercontent.com/caddyserver/dist/master/welcome/index.html
 # Since we are not using a traditional source tarball, we need to explicitly
 # pull in the license file.
-Source4:        https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/LICENSE
+Source4:        https://raw.githubusercontent.com/caddyserver/caddy/%{tagver}/LICENSE
 
 BuildRequires:  golang >= 1.13
 BuildRequires:  git-core
@@ -43,7 +47,7 @@ cp %{S:0} %{S:4} .
 
 %build
 go mod init caddy
-echo "require github.com/caddyserver/caddy/v2 %{tag}" >> go.mod
+echo "require github.com/caddyserver/caddy/v2 %{tagver}" >> go.mod
 go build \
     -buildmode pie \
     -compiler gc \
