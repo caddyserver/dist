@@ -1,10 +1,9 @@
-# https://bugzilla.redhat.com/show_bug.cgi?id=995136#c12
-%global _dwz_low_mem_die_limit 0
+%global debug_package %{nil}
 
 %global basever 2.0.0
-%global prerel beta
-%global prerelnum 13
-%global tagver v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
+%global prerel rc
+%global prerelnum 3
+%global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
 
 Name:           caddy
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_versioning_prereleases_with_tilde
@@ -18,17 +17,19 @@ URL:            https://caddyserver.com
 # go module.  To do that, we are going to forgo the traditional source tarball
 # and instead use just this file from upstream.  This method requires that we
 # allow networking in the build environment.
-Source0:        https://raw.githubusercontent.com/caddyserver/caddy/%{tagver}/cmd/caddy/main.go
+Source0:        https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/cmd/caddy/main.go
 # Use official resources for config, unit file, and welcome page.
 # https://github.com/caddyserver/dist
 Source1:        https://raw.githubusercontent.com/caddyserver/dist/master/config/Caddyfile
 Source2:        https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.service
-Source3:        https://raw.githubusercontent.com/caddyserver/dist/master/welcome/index.html
+Source3:        https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy-api.service
+Source4:        https://raw.githubusercontent.com/caddyserver/dist/master/welcome/index.html
 # Since we are not using a traditional source tarball, we need to explicitly
 # pull in the license file.
-Source4:        https://raw.githubusercontent.com/caddyserver/caddy/%{tagver}/LICENSE
+Source5:        https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/LICENSE
 
-BuildRequires:  golang >= 1.13
+# https://github.com/caddyserver/caddy/commit/e4ec08e977bcc9c798a2fca324c7105040990bcf
+BuildRequires:  golang >= 1.14
 BuildRequires:  git-core
 BuildRequires:  systemd
 %{?systemd_requires}
@@ -42,12 +43,20 @@ Caddy is the web server with automatic HTTPS.
 %prep
 %setup -q -c -T
 # Copy main.go and LICENSE into the build directory.
-cp %{S:0} %{S:4} .
+cp %{S:0} %{S:5} .
 
 
 %build
+# Fedora diverges from upstream Go by disabling the proxy server.  Some of
+# Caddy's dependencies reference commits that are no longer upstream, but are
+# cached in the proxy.  As long as we are downloading dependencies during the
+# build, reset the behavior to prefer the proxy.  This also avoid having a
+# build requirement on bzr.
+# https://fedoraproject.org/wiki/Changes/golang1.13#Detailed_Description
+export GOPROXY='https://proxy.golang.org,direct'
+
 go mod init caddy
-echo "require github.com/caddyserver/caddy/v2 %{tagver}" >> go.mod
+echo "require github.com/caddyserver/caddy/v2 %{tag}" >> go.mod
 go build \
     -buildmode pie \
     -compiler gc \
@@ -60,7 +69,8 @@ go build \
 install -D -m 0755 caddy %{buildroot}%{_bindir}/caddy
 install -D -m 0644 %{S:1} %{buildroot}%{_sysconfdir}/caddy/Caddyfile
 install -D -m 0644 %{S:2} %{buildroot}%{_unitdir}/caddy.service
-install -D -m 0644 %{S:3} %{buildroot}%{_datadir}/caddy/index.html
+install -D -m 0644 %{S:3} %{buildroot}%{_unitdir}/caddy-api.service
+install -D -m 0644 %{S:4} %{buildroot}%{_datadir}/caddy/index.html
 install -d -m 0750 %{buildroot}%{_sharedstatedir}/caddy
 
 
@@ -128,12 +138,16 @@ fi
 %{_bindir}/caddy
 %{_datadir}/caddy
 %{_unitdir}/caddy.service
+%{_unitdir}/caddy-api.service
 %dir %{_sysconfdir}/caddy
 %config(noreplace) %{_sysconfdir}/caddy/Caddyfile
 %attr(0750,caddy,caddy) %dir %{_sharedstatedir}/caddy
 
 
 %changelog
+* Sat Apr 18 2020 Carl George <carl@george.computer> - 2.0.0~rc3-1
+- Latest upstream
+
 * Sun Feb 02 2020 Carl George <carl@george.computer> - 2.0.0~beta13-1
 - Latest upstream
 
