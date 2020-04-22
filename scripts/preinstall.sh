@@ -1,10 +1,10 @@
 #!/bin/sh
 
-if ! grep "^caddy:" /etc/group &>/dev/null; then
+if ! grep "^caddy:" /etc/group >/dev/null 2>&1; then
 	groupadd --system caddy
 fi
 
-if ! id caddy > /dev/null 2>&1; then
+if ! id caddy >/dev/null 2>&1; then
 	useradd --system \
 		--gid caddy \
 		--create-home \
