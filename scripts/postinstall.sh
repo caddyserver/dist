@@ -1,25 +1,27 @@
 #!/bin/sh
 set -e
 
-BIN_DIR=/usr/local/bin
+BIN_DIR=/usr/bin
 debsystemctl=$(command -v deb-systemd-invoke || echo systemctl)
 
 case "$1" in
-	abort-upgrade|abort-remove|abort-deconfigure|configure)
+	abort-upgrade|abort-remove|abort-deconfigure|triggered)
 		;;
-	triggered)
-		if [[ "$(readlink /proc/1/exe)" != */systemd ]]; then
-			echo "ERROR: systemd not running."
-			exit 1
-		fi
+	configure)
+		case "$(readlink /proc/1/exe)" in
+			*/systemd) ;;
+			*) echo "ERROR: systemd not running." && exit 1
+		esac
 
 		systemctl daemon-reload || true
 
 		if systemctl is-enabled caddy >/dev/null; then
-			$debsystemctl restart caddy || true
+			echo "Restarting Caddy..."
+			$debsystemctl restart caddy || echo "WARNING: failed to restart Caddy"
 		else
+			echo "Starting Caddy..."
 			systemctl enable caddy || true
-			$debsystemctl start caddy || true
+			$debsystemctl start caddy || echo "WARNING: failed to start Caddy"
 		fi
 		exit 0
 		;;
