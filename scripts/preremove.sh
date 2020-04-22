@@ -8,6 +8,8 @@ case "$1" in
 	remove|remove-in-favour|deconfigure|deconfigure-in-favour)
 		if systemctl is-enabled caddy >/dev/null; then
 			$debsystemctl stop caddy || exit $?
+			systemctl disable caddy || exit $?
+			systemctl daemon-reload || true
 		fi
 		;;
 
