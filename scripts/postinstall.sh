@@ -1,34 +1,46 @@
 #!/bin/sh
 set -e
 
-BIN_DIR=/usr/bin
-debsystemctl=$(command -v deb-systemd-invoke || echo systemctl)
+if [ "$1" = configure ]; then
+	# Add user and group
+	if ! getent group caddy >/dev/null; then
+		groupadd --system caddy
+	fi
+	if ! getent passwd caddy >/dev/null; then
+		useradd --system \
+			--gid caddy \
+			--create-home \
+			--home-dir /var/lib/caddy \
+			--shell /usr/sbin/nologin \
+			--comment "Caddy web server" \
+			caddy
+	fi
+fi
 
-case "$1" in
-	abort-upgrade|abort-remove|abort-deconfigure|triggered)
-		;;
-	configure)
-		case "$(readlink /proc/1/exe)" in
-			*/systemd) ;;
-			*) echo "ERROR: systemd not running." && exit 1
-		esac
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	# This will only remove masks created by d-s-h on package removal.
+	deb-systemd-helper unmask caddy >/dev/null || true
+	deb-systemd-helper unmask caddy-api >/dev/null || true
 
-		systemctl daemon-reload || true
+	# was-enabled defaults to true, so new installations run enable.
+	if deb-systemd-helper --quiet was-enabled caddy; then
+		# Enables the unit on first installation, creates new
+		# symlinks on upgrades if the unit file has changed.
+		deb-systemd-helper enable caddy >/dev/null || true
+		deb-systemd-invoke start caddy >/dev/null || true
+	else
+		# Update the statefile to add new symlinks (if any), which need to be
+		# cleaned up on purge. Also remove old symlinks.
+		deb-systemd-helper update-state caddy >/dev/null || true
+		deb-systemd-helper update-state caddy-api >/dev/null || true
+	fi
 
-		if systemctl is-enabled caddy >/dev/null; then
-			echo "Restarting Caddy..."
-			$debsystemctl restart caddy || echo "WARNING: failed to restart Caddy"
-		else
-			echo "Starting Caddy..."
-			systemctl enable caddy || true
-			$debsystemctl start caddy || echo "WARNING: failed to start Caddy"
+	# Restart only if it was already started
+	if [ -d /run/systemd/system ]; then
+		systemctl --system daemon-reload >/dev/null || true
+		if [ -n "$2" ]; then
+			deb-systemd-invoke try-restart caddy >/dev/null || true
+			deb-systemd-invoke try-restart caddy-api >/dev/null || true
 		fi
-		exit 0
-		;;
-	*)
-		echo "postinstall called with unknown argument \`$1'" >&2
-		exit 1
-		;;
-esac
-
-exit 0
+	fi
+fi
