@@ -20,6 +20,7 @@ fi
 if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
 	# This will only remove masks created by d-s-h on package removal.
 	deb-systemd-helper unmask caddy >/dev/null || true
+	deb-systemd-helper unmask caddy-api >/dev/null || true
 
 	# was-enabled defaults to true, so new installations run enable.
 	if deb-systemd-helper --quiet was-enabled caddy; then
@@ -31,6 +32,7 @@ if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-decon
 		# Update the statefile to add new symlinks (if any), which need to be
 		# cleaned up on purge. Also remove old symlinks.
 		deb-systemd-helper update-state caddy >/dev/null || true
+		deb-systemd-helper update-state caddy-api >/dev/null || true
 	fi
 
 	# Restart only if it was already started
@@ -38,6 +40,7 @@ if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-decon
 		systemctl --system daemon-reload >/dev/null || true
 		if [ -n "$2" ]; then
 			deb-systemd-invoke try-restart caddy >/dev/null || true
+			deb-systemd-invoke try-restart caddy-api >/dev/null || true
 		fi
 	fi
 fi
