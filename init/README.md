@@ -41,6 +41,8 @@ $ useradd --system \
 
 The two files are identical except for the ExecStart and ExecReload commands.
 
+The usual place to save the service file is: `/etc/systemd/system/caddy.service`
+
 ## Important
 
 Caddy receives all configuration through its [admin API](https://caddyserver.com/docs/api), even when the [command line interface (CLI)](https://caddyserver.com/docs/command-line) is used, which simply wraps up the API calls for you.

@@ -4,6 +4,8 @@
 #
 # This unit is "durable" in that it will automatically resume
 # the last active configuration if the service is restarted.
+#
+# See https://caddyserver.com/docs/install for instructions.
 
 [Unit]
 Description=Caddy
