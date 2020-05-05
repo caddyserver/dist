@@ -54,3 +54,15 @@ Most users will use either config files and the CLI [mutually exclusively](https
 Without the `--resume` flag, the `--config` flag will overwrite any last-known configuration.
 
 However, it is totally safe and normal to use both the `--config` and `--resume` options together if you need to use both a config file and the API. Just be aware that if you update your config file and want to apply those changes, _stopping and starting the server is the wrong way to do this_. Restarting the service is orthogonal to config changes; this is a unique safety feature that guarantees durability and prevents data loss. If the config file has the latest changes, you should use the reload command instead.
+
+## Explanation of directives
+
+To keep our unit files tidy, we haven't littered them with comments. So here we explain the [parameters we've chosen](https://github.com/caddyserver/dist/pull/1):
+
+- **`After=network.target`** ensures that the network interfaces are online before Caddy starts. This is necessary because Caddy uses the network to obtain certificates and serve your site over TLS.
+- **`TimeoutStopSec=5s`** will forcibly kill the caddy process if it cannot gracefully shut down within this time limit. We figure, if you're stopping the server anyway (as opposed to reloading -- two very distinct operations!) then stopping gracefully is less important than stopping at all.
+- **`LimitNOFILE=1048576`** raises the file descriptor limit for the caddy process (`ulimit -n`). This is very important for busy sites, or for servers which need to keep connections open longer. This is the [maximum allowed value](https://stackoverflow.com/a/1213069/1048862) for some popular Linux distros.
+- **`LimitNPROC=512`** raises the number of threads caddy is allowed to have (`ulimit -u`). Obviously, setting this too low for a highly concurrent server is a bad idea.
+- **`PrivateTmp=true`** keeps /tmp and /var/tmp private, which are discarded after caddy stops.
+- **`ProtectSystem=full`** allows writing to /var, which is crucial so that it can store certificates and other data for your site.
+- **`AmbientCapabilities=CAP_NET_BIND_SERVICE`** allows caddy to bind to low ports (< 1024) without running as root.
