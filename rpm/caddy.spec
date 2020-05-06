@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 %global basever 2.0.0
-%global prerel rc
-%global prerelnum 3
+#global prerel rc
+#global prerelnum 3
 %global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
 
 Name:           caddy
@@ -145,6 +145,9 @@ fi
 
 
 %changelog
+* Wed May 06 2020 Neal Gompa <ngompa13@gmail.com> - 2.0.0-1
+- Update to v2.0.0 final
+
 * Sat Apr 18 2020 Carl George <carl@george.computer> - 2.0.0~rc3-1
 - Latest upstream
 
