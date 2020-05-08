@@ -1,0 +1,411 @@
+{
+    "command": "caddy",
+    "subcommands": [
+        {
+            "command": "adapt",
+            "args": [],
+            "flags": [
+                {
+                    "name": "adapter",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "config",
+                    "type": "string",
+                    "required": true,
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "pretty",
+                    "type": "boolean"
+                },
+                {
+                    "name": "validate",
+                    "type": "boolean"
+                }
+            ]
+        },
+        {
+            "command": "build-info",
+            "args": [],
+            "flags": []
+        },
+        {
+            "command": "environ",
+            "args": [],
+            "flags": []
+        },
+        {
+            "command": "file-server",
+            "args": [],
+            "flags": [
+                {
+                    "name": "browse",
+                    "type": "boolean"
+                },
+                {
+                    "name": "domain",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "listen",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "root",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "templates",
+                    "type": "boolean"
+                }
+            ]
+        },
+        {
+            "command": "fmt",
+            "flags": [
+                {
+                    "name": "overwrite",
+                    "type": "boolean"
+                }
+            ],
+            "args": [
+                {
+                    "name": "path",
+                    "completion": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        {
+            "command": "hash-password",
+            "args": [],
+            "flags": [
+                {
+                    "name": "algorithm",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "plaintext",
+                    "type": "string",
+                    "required": true,
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "salt",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        {
+            "command": "help",
+            "flags": [],
+            "args": [
+                {
+                    "name": "adapt",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "build-info",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "environ",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "file-server",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "fmt",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "hash-password",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "help",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "list-modules",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "reload",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "reverse-proxy",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "run",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "stop",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "trust",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "untrust",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "validate",
+                    "completion": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        {
+            "command": "list-modules",
+            "args": [],
+            "flags": [
+                {
+                    "name": "versions",
+                    "type": "boolean"
+                }
+            ]
+        },
+        {
+            "command": "reload",
+            "args": [],
+            "flags": [
+                {
+                    "name": "adapter",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "config",
+                    "type": "string",
+                    "required": true,
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "address",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        {
+            "command": "reverse-proxy",
+            "args": [],
+            "flags": [
+                {
+                    "name": "change-host-header",
+                    "type": "boolean"
+                },
+                {
+                    "name": "from",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "to",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        {
+            "command": "run",
+            "args": [],
+            "flags": [
+                {
+                    "name": "adapter",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "config",
+                    "type": "string",
+                    "required": true,
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "environ",
+                    "type": "boolean"
+                },
+                {
+                    "name": "pingback",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "resume",
+                    "type": "boolean"
+                },
+                {
+                    "name": "watch",
+                    "type": "boolean"
+                }
+            ]
+        },
+        {
+            "command": "start",
+            "args": [],
+            "flags": [
+                {
+                    "name": "adapter",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "config",
+                    "type": "string",
+                    "required": true,
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "watch",
+                    "type": "boolean"
+                }
+            ]
+        },
+        {
+            "command": "stop",
+            "args": [],
+            "flags": [
+                {
+                    "name": "address",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        {
+            "command": "trust",
+            "args": [],
+            "flags": []
+        },
+        {
+            "command": "untrust",
+            "args": [],
+            "flags": [
+                {
+                    "name": "ca",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "cert",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        {
+            "command": "validate",
+            "args": [],
+            "flags": [
+                {
+                    "name": "config",
+                    "type": "string",
+                    "required": true,
+                    "completion": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "adapter",
+                    "type": "string",
+                    "completion": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        {
+            "command": "version",
+            "args": [],
+            "flags": []
+        }
+    ]
+}
