@@ -10,6 +10,10 @@ useradd --system \
     --comment "Caddy web server" \
     caddy
 
+if getent group www-data >/dev/null; then
+    usermod -aG www-data caddy
+fi
+
 chown -R caddy:caddy /var/lib/caddy
 
 VERSION_SLUG=${CADDY_VERSION//v/}
