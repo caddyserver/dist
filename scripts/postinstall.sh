@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-if [ "$1" = configure ]; then
+if [ "$1" = "configure" ]; then
 	# Add user and group
 	if ! getent group caddy >/dev/null; then
 		groupadd --system caddy
@@ -14,6 +14,9 @@ if [ "$1" = configure ]; then
 			--shell /usr/sbin/nologin \
 			--comment "Caddy web server" \
 			caddy
+	fi
+	if getent group www-data >/dev/null; then
+		usermod -aG www-data caddy
 	fi
 fi
 
