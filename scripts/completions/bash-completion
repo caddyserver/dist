@@ -77,10 +77,12 @@ _caddy_completions()
 
     if [[ "$prev" == "--adapter" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -W "caddyfile nginx jsonc json5 yaml cue toml" -- "$cur"))
       return
     fi
     if [[ "$prev" == "--config" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -f -- "$cur"))
       return
     fi
 
@@ -261,6 +263,7 @@ _caddy_completions()
     fi
     if [[ "$prev" == "--root" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -f -- "$cur"))
       return
     fi
 
@@ -345,6 +348,7 @@ _caddy_completions()
 
     if [[ "${#used_args[@]}" -eq "0" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -f -- "$cur"))
       return
     fi
 
@@ -629,10 +633,12 @@ _caddy_completions()
 
     if [[ "$prev" == "--adapter" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -W "caddyfile nginx jsonc json5 yaml cue toml" -- "$cur"))
       return
     fi
     if [[ "$prev" == "--config" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -f -- "$cur"))
       return
     fi
     if [[ "$prev" == "--address" ]]; then
@@ -805,10 +811,12 @@ _caddy_completions()
 
     if [[ "$prev" == "--adapter" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -W "caddyfile nginx jsonc json5 yaml cue toml" -- "$cur"))
       return
     fi
     if [[ "$prev" == "--config" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -f -- "$cur"))
       return
     fi
     if [[ "$prev" == "--pingback" ]]; then
@@ -895,10 +903,12 @@ _caddy_completions()
 
     if [[ "$prev" == "--adapter" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -W "caddyfile nginx jsonc json5 yaml cue toml" -- "$cur"))
       return
     fi
     if [[ "$prev" == "--config" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -f -- "$cur"))
       return
     fi
 
@@ -1067,6 +1077,7 @@ _caddy_completions()
     fi
     if [[ "$prev" == "--cert" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -f -- "$cur"))
       return
     fi
 
@@ -1131,10 +1142,12 @@ _caddy_completions()
 
     if [[ "$prev" == "--config" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -f -- "$cur"))
       return
     fi
     if [[ "$prev" == "--adapter" ]]; then
       COMPREPLY=()
+      COMPREPLY=($(compgen -W "caddyfile nginx jsonc json5 yaml cue toml" -- "$cur"))
       return
     fi
 

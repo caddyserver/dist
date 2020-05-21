@@ -9,5 +9,5 @@ The shell completion scripts are generated using the tool [@completely/cli](http
 - Run `./generate.sh`
 
 - Place the generated files in the designated directories:
-	- bash: `mv bash-completion /etc/bash_completion.d/caddy`
+	- bash: `sudo cp bash-completion /etc/bash_completion.d/caddy`
 	- zsh: `fpath=(/path/to/completion/script/dir $fpath)`

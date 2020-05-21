@@ -9,7 +9,8 @@
                     "name": "adapter",
                     "type": "string",
                     "completion": {
-                        "type": "string"
+                        "type": "oneOf",
+                        "values": ["caddyfile", "nginx", "jsonc", "json5", "yaml", "cue", "toml"]
                     }
                 },
                 {
@@ -17,7 +18,7 @@
                     "type": "string",
                     "required": true,
                     "completion": {
-                        "type": "string"
+                        "type": "files"
                     }
                 },
                 {
@@ -66,7 +67,7 @@
                     "name": "root",
                     "type": "string",
                     "completion": {
-                        "type": "string"
+                        "type": "files"
                     }
                 },
                 {
@@ -87,7 +88,7 @@
                 {
                     "name": "path",
                     "completion": {
-                        "type": "string"
+                        "type": "files"
                     }
                 }
             ]
@@ -106,7 +107,6 @@
                 {
                     "name": "plaintext",
                     "type": "string",
-                    "required": true,
                     "completion": {
                         "type": "string"
                     }
@@ -234,7 +234,8 @@
                     "name": "adapter",
                     "type": "string",
                     "completion": {
-                        "type": "string"
+                        "type": "oneOf",
+                        "values": ["caddyfile", "nginx", "jsonc", "json5", "yaml", "cue", "toml"]
                     }
                 },
                 {
@@ -242,7 +243,7 @@
                     "type": "string",
                     "required": true,
                     "completion": {
-                        "type": "string"
+                        "type": "files"
                     }
                 },
                 {
@@ -286,7 +287,8 @@
                     "name": "adapter",
                     "type": "string",
                     "completion": {
-                        "type": "string"
+                        "type": "oneOf",
+                        "values": ["caddyfile", "nginx", "jsonc", "json5", "yaml", "cue", "toml"]
                     }
                 },
                 {
@@ -294,7 +296,7 @@
                     "type": "string",
                     "required": true,
                     "completion": {
-                        "type": "string"
+                        "type": "files"
                     }
                 },
                 {
@@ -326,7 +328,8 @@
                     "name": "adapter",
                     "type": "string",
                     "completion": {
-                        "type": "string"
+                        "type": "oneOf",
+                        "values": ["caddyfile", "nginx", "jsonc", "json5", "yaml", "cue", "toml"]
                     }
                 },
                 {
@@ -334,7 +337,7 @@
                     "type": "string",
                     "required": true,
                     "completion": {
-                        "type": "string"
+                        "type": "files"
                     }
                 },
                 {
@@ -376,7 +379,7 @@
                     "name": "cert",
                     "type": "string",
                     "completion": {
-                        "type": "string"
+                        "type": "files"
                     }
                 }
             ]
@@ -390,14 +393,15 @@
                     "type": "string",
                     "required": true,
                     "completion": {
-                        "type": "string"
+                        "type": "files"
                     }
                 },
                 {
                     "name": "adapter",
                     "type": "string",
                     "completion": {
-                        "type": "string"
+                        "type": "oneOf",
+                        "values": ["caddyfile", "nginx", "jsonc", "json5", "yaml", "cue", "toml"]
                     }
                 }
             ]
