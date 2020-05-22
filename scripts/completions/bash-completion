@@ -77,7 +77,10 @@ _caddy_completions()
 
     if [[ "$prev" == "--adapter" ]]; then
       COMPREPLY=()
-      COMPREPLY=($(compgen -W "caddyfile nginx jsonc json5 yaml cue toml" -- "$cur"))
+      if command -v grep > /dev/null && command -v sed > /dev/null && command -v tr > /dev/null; then
+        COMPREPLY=($(compgen -W "$(caddy list-modules | grep adapters | sed s/caddy.adapters.// | tr '
+' ' ')" -- "$cur"))
+      fi
       return
     fi
     if [[ "$prev" == "--config" ]]; then
@@ -263,7 +266,7 @@ _caddy_completions()
     fi
     if [[ "$prev" == "--root" ]]; then
       COMPREPLY=()
-      COMPREPLY=($(compgen -f -- "$cur"))
+      COMPREPLY=($(compgen -d -- "$cur"))
       return
     fi
 
@@ -476,62 +479,7 @@ _caddy_completions()
 
     if [[ "${#used_args[@]}" -eq "0" ]]; then
       COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "1" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "2" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "3" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "4" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "5" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "6" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "7" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "8" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "9" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "10" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "11" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "12" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "13" ]]; then
-      COMPREPLY=()
-      return
-    fi
-    if [[ "${#used_args[@]}" -eq "14" ]]; then
-      COMPREPLY=()
+      COMPREPLY=($(compgen -W "adapt build-info environ file-server fmt hash-password help list-modules reload reverse-proxy run stop trust untrust validate" -- "$cur"))
       return
     fi
 
@@ -633,7 +581,10 @@ _caddy_completions()
 
     if [[ "$prev" == "--adapter" ]]; then
       COMPREPLY=()
-      COMPREPLY=($(compgen -W "caddyfile nginx jsonc json5 yaml cue toml" -- "$cur"))
+      if command -v grep > /dev/null && command -v sed > /dev/null && command -v tr > /dev/null; then
+        COMPREPLY=($(compgen -W "$(caddy list-modules | grep adapters | sed s/caddy.adapters.// | tr '
+' ' ')" -- "$cur"))
+      fi
       return
     fi
     if [[ "$prev" == "--config" ]]; then
@@ -801,6 +752,12 @@ _caddy_completions()
         index=$((index+2))
         continue
       fi
+      if [ "${args[0]}" == "--pidfile" ]; then
+        used_flags+=("${args[0]}")
+        args=("${args[@]:2}")
+        index=$((index+2))
+        continue
+      fi
 
       if [[ "${args[0]}" != "-"* ]]; then
         used_args+=("${args[0]}")
@@ -811,7 +768,10 @@ _caddy_completions()
 
     if [[ "$prev" == "--adapter" ]]; then
       COMPREPLY=()
-      COMPREPLY=($(compgen -W "caddyfile nginx jsonc json5 yaml cue toml" -- "$cur"))
+      if command -v grep > /dev/null && command -v sed > /dev/null && command -v tr > /dev/null; then
+        COMPREPLY=($(compgen -W "$(caddy list-modules | grep adapters | sed s/caddy.adapters.// | tr '
+' ' ')" -- "$cur"))
+      fi
       return
     fi
     if [[ "$prev" == "--config" ]]; then
@@ -821,6 +781,11 @@ _caddy_completions()
     fi
     if [[ "$prev" == "--pingback" ]]; then
       COMPREPLY=()
+      return
+    fi
+    if [[ "$prev" == "--pidfile" ]]; then
+      COMPREPLY=()
+      COMPREPLY=($(compgen -f -- "$cur"))
       return
     fi
 
@@ -849,6 +814,9 @@ _caddy_completions()
         fi
         if ! _contains_element "--pingback" "${used_flags[@]}"; then
           completion+=("--pingback")
+        fi
+        if ! _contains_element "--pidfile" "${used_flags[@]}"; then
+          completion+=("--pidfile")
         fi
 
       COMPREPLY=($(compgen -W "${completion[*]}" -- "$cur"))
@@ -893,6 +861,12 @@ _caddy_completions()
         index=$((index+2))
         continue
       fi
+      if [ "${args[0]}" == "--pidfile" ]; then
+        used_flags+=("${args[0]}")
+        args=("${args[@]:2}")
+        index=$((index+2))
+        continue
+      fi
 
       if [[ "${args[0]}" != "-"* ]]; then
         used_args+=("${args[0]}")
@@ -903,10 +877,18 @@ _caddy_completions()
 
     if [[ "$prev" == "--adapter" ]]; then
       COMPREPLY=()
-      COMPREPLY=($(compgen -W "caddyfile nginx jsonc json5 yaml cue toml" -- "$cur"))
+      if command -v grep > /dev/null && command -v sed > /dev/null && command -v tr > /dev/null; then
+        COMPREPLY=($(compgen -W "$(caddy list-modules | grep adapters | sed s/caddy.adapters.// | tr '
+' ' ')" -- "$cur"))
+      fi
       return
     fi
     if [[ "$prev" == "--config" ]]; then
+      COMPREPLY=()
+      COMPREPLY=($(compgen -f -- "$cur"))
+      return
+    fi
+    if [[ "$prev" == "--pidfile" ]]; then
       COMPREPLY=()
       COMPREPLY=($(compgen -f -- "$cur"))
       return
@@ -928,6 +910,9 @@ _caddy_completions()
         fi
         if ! _contains_element "--config" "${used_flags[@]}"; then
           completion+=("--config")
+        fi
+        if ! _contains_element "--pidfile" "${used_flags[@]}"; then
+          completion+=("--pidfile")
         fi
 
       COMPREPLY=($(compgen -W "${completion[*]}" -- "$cur"))
@@ -1147,7 +1132,10 @@ _caddy_completions()
     fi
     if [[ "$prev" == "--adapter" ]]; then
       COMPREPLY=()
-      COMPREPLY=($(compgen -W "caddyfile nginx jsonc json5 yaml cue toml" -- "$cur"))
+      if command -v grep > /dev/null && command -v sed > /dev/null && command -v tr > /dev/null; then
+        COMPREPLY=($(compgen -W "$(caddy list-modules | grep adapters | sed s/caddy.adapters.// | tr '
+' ' ')" -- "$cur"))
+      fi
       return
     fi
 

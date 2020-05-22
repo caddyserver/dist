@@ -9,8 +9,9 @@
                     "name": "adapter",
                     "type": "string",
                     "completion": {
-                        "type": "oneOf",
-                        "values": ["caddyfile", "nginx", "jsonc", "json5", "yaml", "cue", "toml"]
+                        "type": "command",
+                        "command": "caddy list-modules | grep adapters | sed s/caddy.adapters.// | tr '\n' ' '",
+                        "requiredCommands": ["grep", "sed", "tr"]
                     }
                 },
                 {
@@ -67,7 +68,7 @@
                     "name": "root",
                     "type": "string",
                     "completion": {
-                        "type": "files"
+                        "type": "directories"
                     }
                 },
                 {
@@ -125,93 +126,26 @@
             "flags": [],
             "args": [
                 {
-                    "name": "adapt",
+                    "name": "subcommands",
                     "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "build-info",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "environ",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "file-server",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "fmt",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "hash-password",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "help",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "list-modules",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "reload",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "reverse-proxy",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "run",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "stop",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "trust",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "untrust",
-                    "completion": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "name": "validate",
-                    "completion": {
-                        "type": "string"
+                        "type": "oneOf",
+                        "values": [
+                            "adapt",
+                            "build-info",
+                            "environ",
+                            "file-server",
+                            "fmt",
+                            "hash-password",
+                            "help",
+                            "list-modules",
+                            "reload",
+                            "reverse-proxy",
+                            "run",
+                            "stop",
+                            "trust",
+                            "untrust",
+                            "validate"
+                        ]
                     }
                 }
             ]
@@ -234,8 +168,9 @@
                     "name": "adapter",
                     "type": "string",
                     "completion": {
-                        "type": "oneOf",
-                        "values": ["caddyfile", "nginx", "jsonc", "json5", "yaml", "cue", "toml"]
+                        "type": "command",
+                        "command": "caddy list-modules | grep adapters | sed s/caddy.adapters.// | tr '\n' ' '",
+                        "requiredCommands": ["grep", "sed", "tr"]
                     }
                 },
                 {
@@ -287,8 +222,9 @@
                     "name": "adapter",
                     "type": "string",
                     "completion": {
-                        "type": "oneOf",
-                        "values": ["caddyfile", "nginx", "jsonc", "json5", "yaml", "cue", "toml"]
+                        "type": "command",
+                        "command": "caddy list-modules | grep adapters | sed s/caddy.adapters.// | tr '\n' ' '",
+                        "requiredCommands": ["grep", "sed", "tr"]
                     }
                 },
                 {
@@ -317,6 +253,13 @@
                 {
                     "name": "watch",
                     "type": "boolean"
+                },
+                {
+                    "name": "pidfile",
+                    "type": "string",
+                    "completion": {
+                        "type": "files"
+                    }
                 }
             ]
         },
@@ -328,8 +271,9 @@
                     "name": "adapter",
                     "type": "string",
                     "completion": {
-                        "type": "oneOf",
-                        "values": ["caddyfile", "nginx", "jsonc", "json5", "yaml", "cue", "toml"]
+                        "type": "command",
+                        "command": "caddy list-modules | grep adapters | sed s/caddy.adapters.// | tr '\n' ' '",
+                        "requiredCommands": ["grep", "sed", "tr"]
                     }
                 },
                 {
@@ -343,6 +287,13 @@
                 {
                     "name": "watch",
                     "type": "boolean"
+                },
+                {
+                    "name": "pidfile",
+                    "type": "string",
+                    "completion": {
+                        "type": "files"
+                    }
                 }
             ]
         },
@@ -400,8 +351,9 @@
                     "name": "adapter",
                     "type": "string",
                     "completion": {
-                        "type": "oneOf",
-                        "values": ["caddyfile", "nginx", "jsonc", "json5", "yaml", "cue", "toml"]
+                        "type": "command",
+                        "command": "caddy list-modules | grep adapters | sed s/caddy.adapters.// | tr '\n' ' '",
+                        "requiredCommands": ["grep", "sed", "tr"]
                     }
                 }
             ]

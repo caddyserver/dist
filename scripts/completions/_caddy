@@ -64,10 +64,10 @@ function _caddy {
 
 function __caddy_adapt {
   _arguments \
-      "--adapter: :(caddyfile nginx jsonc json5 yaml cue toml)" \
-      "--config: :_files" \
-            "--pretty" \
-      "--validate" \
+      "--pretty: :"  \
+      "--validate: :"  \
+      "--adapter: :_files"  \
+      "--config: :_files"  \
 
 }
 function __caddy_build-info {
@@ -78,82 +78,84 @@ function __caddy_environ {
 }
 function __caddy_file-server {
   _arguments \
-      "--domain: :_files" \
-            "--listen: :_files" \
-            "--root: :_files" \
-            "--browse" \
-      "--templates" \
+      "--browse: :"  \
+      "--templates: :"  \
+      "--domain: :_files"  \
+      "--listen: :_files"  \
+      "--root: :_dirs"  \
 
 }
 function __caddy_fmt {
   _arguments \
-      "--overwrite" \
+      "--overwrite: :"  \
 
 }
 function __caddy_hash-password {
   _arguments \
-      "--algorithm: :_files" \
-            "--plaintext: :_files" \
-            "--salt: :_files" \
-      
+      "--algorithm: :_files"  \
+      "--plaintext: :_files"  \
+      "--salt: :_files"  \
+
 }
 function __caddy_help {
 
 }
 function __caddy_list-modules {
   _arguments \
-      "--versions" \
+      "--versions: :"  \
 
 }
 function __caddy_reload {
   _arguments \
-      "--adapter: :(caddyfile nginx jsonc json5 yaml cue toml)" \
-      "--config: :_files" \
-            "--address: :_files" \
-      
+      "--adapter: :_files"  \
+      "--config: :_files"  \
+      "--address: :_files"  \
+
 }
 function __caddy_reverse-proxy {
   _arguments \
-      "--from: :_files" \
-            "--to: :_files" \
-            "--change-host-header" \
+      "--change-host-header: :"  \
+      "--from: :_files"  \
+      "--to: :_files"  \
 
 }
 function __caddy_run {
   _arguments \
-      "--adapter: :(caddyfile nginx jsonc json5 yaml cue toml)" \
-      "--config: :_files" \
-            "--pingback: :_files" \
-            "--environ" \
-      "--resume" \
-      "--watch" \
+      "--environ: :"  \
+      "--resume: :"  \
+      "--watch: :"  \
+      "--adapter: :_files"  \
+      "--config: :_files"  \
+      "--pingback: :_files"  \
+      "--pidfile: :_files"  \
 
 }
 function __caddy_start {
   _arguments \
-      "--adapter: :(caddyfile nginx jsonc json5 yaml cue toml)" \
-      "--config: :_files" \
-            "--watch" \
+      "--watch: :"  \
+      "--adapter: :_files"  \
+      "--config: :_files"  \
+      "--pidfile: :_files"  \
 
 }
 function __caddy_stop {
   _arguments \
-      "--address: :_files" \
-      
+      "--address: :_files"  \
+
 }
 function __caddy_trust {
 
 }
 function __caddy_untrust {
   _arguments \
-      "--ca: :_files" \
-            "--cert: :_files" \
-      
+      "--ca: :_files"  \
+      "--cert: :_files"  \
+
 }
 function __caddy_validate {
   _arguments \
-      "--config: :_files" \
-            "--adapter: :(caddyfile nginx jsonc json5 yaml cue toml)" \
+      "--config: :_files"  \
+      "--adapter: :_files"  \
 
 }
 function __caddy_version {
