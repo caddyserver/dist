@@ -8,7 +8,7 @@
 Name:           caddy
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_versioning_prereleases_with_tilde
 Version:        %{basever}%{?prerel:~%{prerel}%{prerelnum}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        ASL 2.0
 URL:            https://caddyserver.com
@@ -31,7 +31,11 @@ Source5:        https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/LICEN
 # https://github.com/caddyserver/caddy/commit/e4ec08e977bcc9c798a2fca324c7105040990bcf
 BuildRequires:  golang >= 1.14
 BuildRequires:  git-core
+%if 0%{?rhel} && 0%{?rhel} <= 8
 BuildRequires:  systemd
+%else
+BuildRequires:  systemd-rpm-macros
+%endif
 %{?systemd_requires}
 Provides:       webserver
 
@@ -60,8 +64,8 @@ echo "require github.com/caddyserver/caddy/v2 %{tag}" >> go.mod
 go build \
     -buildmode pie \
     -compiler gc \
-    -tags="rpm_crashtraceback ${BUILDTAGS:-}" \
-    -ldflags "${LDFLAGS:-} -B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \n') -extldflags '%__global_ldflags'" \
+    %{!?suse_version: -tags="rpm_crashtraceback ${BUILDTAGS:-}"} \
+    -ldflags "${LDFLAGS:-} -B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \n')%{?__global_ldflags: -extldflags '%__global_ldflags'}" \
     -a -v
 
 
@@ -145,6 +149,9 @@ fi
 
 
 %changelog
+* Tue May 26 2020 Neal Gompa <ngompa13@gmail.com> - 2.0.0-2
+- Adapt for SUSE distributions
+
 * Wed May 06 2020 Neal Gompa <ngompa13@gmail.com> - 2.0.0-1
 - Update to v2.0.0 final
 
