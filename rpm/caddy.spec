@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 
-%global basever 2.0.0
+%global basever 2.1.1
 #global prerel rc
 #global prerelnum 3
 %global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
@@ -8,7 +8,7 @@
 Name:           caddy
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_versioning_prereleases_with_tilde
 Version:        %{basever}%{?prerel:~%{prerel}%{prerelnum}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        ASL 2.0
 URL:            https://caddyserver.com
@@ -149,6 +149,9 @@ fi
 
 
 %changelog
+* Wed Jul 08 2020 Neal Gompa <ngompa13@gmail.com> - 2.1.1-1
+- Latest upstream
+
 * Tue May 26 2020 Neal Gompa <ngompa13@gmail.com> - 2.0.0-2
 - Adapt for SUSE distributions
 
