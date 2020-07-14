@@ -1,5 +1,5 @@
 ---
 - src: dev-sec.os-hardening
-  version: 5.2.1
+  version: 6.0.3
 - src: dev-sec.ssh-hardening
-  version: 7.0.0
+  version: 9.3.0

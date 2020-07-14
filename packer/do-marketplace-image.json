@@ -2,8 +2,7 @@
 	"variables": {
 		"token": "{{env `DIGITALOCEAN_TOKEN`}}",
 		"image_name": "marketplace-snapshot-{{timestamp}}",
-		"ssh_user": "root",
-		"caddy_version": null
+		"ssh_user": "root"
 	},
 	"builders": [
 		{
@@ -19,9 +18,6 @@
 	"provisioners": [
 		{
 			"type": "shell",
-			"environment_vars": [
-				"CADDY_VERSION={{user `caddy_version`}}"
-			],
 			"scripts": [
 				"scripts/00-base.sh",
 				"scripts/10-firewall.sh",
@@ -30,23 +26,8 @@
 		},
 		{
 			"type": "file",
-			"source": "../init/caddy.service",
-			"destination": "/etc/systemd/system/caddy.service"
-		},
-		{
-			"type": "file",
 			"source": "files/fail2ban/jail.local",
 			"destination": "/etc/fail2ban/jail.local"
-		},
-		{
-			"type": "file",
-			"source": "../config/Caddyfile",
-			"destination": "/etc/caddy/Caddyfile"
-		},
-		{
-			"type": "file",
-			"source": "../welcome/index.html",
-			"destination": "/usr/share/caddy/index.html"
 		},
 		{
 			"type": "ansible",
