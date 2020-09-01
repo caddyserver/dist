@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
-%global basever 2.1.1
-#global prerel rc
-#global prerelnum 3
+%global basever 2.2.0
+%global prerel rc
+%global prerelnum 1
 %global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
 
 Name:           caddy
@@ -24,9 +24,11 @@ Source1:        https://raw.githubusercontent.com/caddyserver/dist/master/config
 Source2:        https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.service
 Source3:        https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy-api.service
 Source4:        https://raw.githubusercontent.com/caddyserver/dist/master/welcome/index.html
+Source5:        https://raw.githubusercontent.com/caddyserver/dist/master/scripts/completions/bash-completion
+Source6:        https://raw.githubusercontent.com/caddyserver/dist/master/scripts/completions/_caddy
 # Since we are not using a traditional source tarball, we need to explicitly
 # pull in the license file.
-Source5:        https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/LICENSE
+Source10:       https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/LICENSE
 
 # https://github.com/caddyserver/caddy/commit/e4ec08e977bcc9c798a2fca324c7105040990bcf
 BuildRequires:  golang >= 1.14
@@ -47,7 +49,7 @@ Caddy is the web server with automatic HTTPS.
 %prep
 %setup -q -c -T
 # Copy main.go and LICENSE into the build directory.
-cp %{S:0} %{S:5} .
+cp %{S:0} %{S:10} .
 
 
 %build
@@ -70,12 +72,25 @@ go build \
 
 
 %install
-install -D -m 0755 caddy %{buildroot}%{_bindir}/caddy
-install -D -m 0644 %{S:1} %{buildroot}%{_sysconfdir}/caddy/Caddyfile
-install -D -m 0644 %{S:2} %{buildroot}%{_unitdir}/caddy.service
-install -D -m 0644 %{S:3} %{buildroot}%{_unitdir}/caddy-api.service
-install -D -m 0644 %{S:4} %{buildroot}%{_datadir}/caddy/index.html
+# command
+install -D -p -m 0755 caddy %{buildroot}%{_bindir}/caddy
+
+# config
+install -D -p -m 0644 %{S:1} %{buildroot}%{_sysconfdir}/caddy/Caddyfile
+
+# systemd units
+install -D -p -m 0644 %{S:2} %{buildroot}%{_unitdir}/caddy.service
+install -D -p -m 0644 %{S:3} %{buildroot}%{_unitdir}/caddy-api.service
+
+# data directory
 install -d -m 0750 %{buildroot}%{_sharedstatedir}/caddy
+
+# welcome page
+install -D -p -m 0644 %{S:4} %{buildroot}%{_datadir}/caddy/index.html
+
+# shell completion
+install -D -p -m 0644 %{S:5} %{buildroot}%{_datadir}/bash-completion/completions/caddy
+install -D -p -m 0644 %{S:6} %{buildroot}%{_datadir}/zsh/site-functions/_caddy
 
 
 %pre
@@ -146,9 +161,19 @@ fi
 %dir %{_sysconfdir}/caddy
 %config(noreplace) %{_sysconfdir}/caddy/Caddyfile
 %attr(0750,caddy,caddy) %dir %{_sharedstatedir}/caddy
+# filesystem owns all the parent directories here
+%{_datadir}/bash-completion/completions/caddy
+# own parent directories in case zsh is not installed
+%dir %{_datadir}/zsh
+%dir %{_datadir}/zsh/site-functions
+%{_datadir}/zsh/site-functions/_caddy
 
 
 %changelog
+* Mon Aug 31 2020 Carl George <carl@george.computer> - 2.2.0~rc1-1
+- Latest upstream
+- Add bash and zsh completion support
+
 * Wed Jul 08 2020 Neal Gompa <ngompa13@gmail.com> - 2.1.1-1
 - Latest upstream
 
