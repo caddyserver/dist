@@ -8,7 +8,7 @@
 Name:           caddy
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_versioning_prereleases_with_tilde
 Version:        %{basever}%{?prerel:~%{prerel}%{prerelnum}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        ASL 2.0
 URL:            https://caddyserver.com
@@ -33,7 +33,7 @@ Source10:       https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/LICEN
 # https://github.com/caddyserver/caddy/commit/e4ec08e977bcc9c798a2fca324c7105040990bcf
 BuildRequires:  golang >= 1.14
 BuildRequires:  git-core
-%if 0%{?rhel} && 0%{?rhel} <= 8
+%if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  systemd
 %else
 BuildRequires:  systemd-rpm-macros
@@ -170,6 +170,9 @@ fi
 
 
 %changelog
+* Wed Sep 09 2020 Neal Gompa <ngompa13@gmail.com> - 2.2.0~rc1-2
+- Fix systemd build dependency for RHEL/CentOS
+
 * Mon Aug 31 2020 Carl George <carl@george.computer> - 2.2.0~rc1-1
 - Latest upstream
 - Add bash and zsh completion support
