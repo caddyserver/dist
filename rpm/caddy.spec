@@ -2,13 +2,13 @@
 
 %global basever 2.2.0
 %global prerel rc
-%global prerelnum 1
+%global prerelnum 3
 %global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
 
 Name:           caddy
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_versioning_prereleases_with_tilde
 Version:        %{basever}%{?prerel:~%{prerel}%{prerelnum}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        ASL 2.0
 URL:            https://caddyserver.com
@@ -170,6 +170,9 @@ fi
 
 
 %changelog
+* Sat Sep 19 2020 Carl George <carl@george.computer> - 2.2.0~rc3-1
+- Latest upstream
+
 * Wed Sep 09 2020 Neal Gompa <ngompa13@gmail.com> - 2.2.0~rc1-2
 - Fix systemd build dependency for RHEL/CentOS
 
