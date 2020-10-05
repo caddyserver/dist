@@ -59,7 +59,7 @@ However, it is totally safe and normal to use both the `--config` and `--resume`
 
 To keep our unit files tidy, we haven't littered them with comments. So here we explain the [parameters we've chosen](https://github.com/caddyserver/dist/pull/1):
 
-- **`After=network.target`** ensures that the network interfaces are online before Caddy starts. This is necessary because Caddy uses the network to obtain certificates and serve your site over TLS.
+- **`After=network.target network-online.target`** and **`Requires=network-online.target`** ensures that the network interfaces are online before Caddy starts. This is necessary because Caddy uses the network to obtain certificates and serve your site over TLS. Specifically, `network-online.target` is needed for the many users who bind listeners to specific network interfaces.
 - **`TimeoutStopSec=5s`** will forcibly kill the caddy process if it cannot gracefully shut down within this time limit. We figure, if you're stopping the server anyway (as opposed to reloading -- two very distinct operations!) then stopping gracefully is less important than stopping at all.
 - **`LimitNOFILE=1048576`** raises the file descriptor limit for the caddy process (`ulimit -n`). This is very important for busy sites, or for servers which need to keep connections open longer. This is the [maximum allowed value](https://stackoverflow.com/a/1213069/1048862) for some popular Linux distros.
 - **`LimitNPROC=512`** raises the number of threads caddy is allowed to have (`ulimit -u`). Obviously, setting this too low for a highly concurrent server is a bad idea.
