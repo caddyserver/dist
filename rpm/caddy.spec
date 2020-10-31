@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 
-%global basever 2.2.0
+%global basever 2.2.1
 #global prerel rc
 #global prerelnum 3
 %global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
@@ -170,6 +170,9 @@ fi
 
 
 %changelog
+* Fri Oct 30 2020 Carl George <carl@george.computer> - 2.2.1-1
+- Latest upstream
+
 * Sat Sep 26 2020 Carl George <carl@george.computer> - 2.2.0-1
 - Latest upstream
 
