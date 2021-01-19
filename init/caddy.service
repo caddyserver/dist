@@ -20,6 +20,8 @@ After=network.target network-online.target
 Requires=network-online.target
 
 [Service]
+Type=notify
+NotifyAccess=exec
 User=caddy
 Group=caddy
 ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile
