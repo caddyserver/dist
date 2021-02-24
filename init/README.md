@@ -36,7 +36,7 @@ $ useradd --system \
 
 ## Choosing a service file
 
-- **`caddy.service`** - Use this one if you configure Caddy with a file (for example, the Caddyfile, or a .json file).
+- **`caddy.service`** - Use this one if you configure Caddy with a file (for example, the Caddyfile, or a .json file) that you specify in /et/default/caddy
 - **`caddy-api.service`** - Use this one if you configure Caddy solely through its API.
 
 The two files are identical except for the ExecStart and ExecReload commands.
@@ -49,7 +49,7 @@ Caddy receives all configuration through its [admin API](https://caddyserver.com
 
 Most users will use either config files and the CLI [mutually exclusively](https://caddyserver.com/docs/getting-started#api-vs-config-files) with the API because it is simpler to have only one source of truth. However, you may wish to provide Caddy an initial "bootstrapping" configuration with a config file, and use the API thereafter.
 
-**⚠️ If you provide an initial config file with the `--config` flag and then update the config using the API, you risk losing your changes if the service is restarted unless you have the `--resume` flag in your ExecStart command.**
+**⚠️ If you provide an initial config file with the `--config` flag and then update the config using the API, you risk losing your changes if the service is restarted unless you have the `--resume` flag in your ExecStart command, which you can add to the EXTRA_PARAMS in /etc/default/caddy.**
 
 Without the `--resume` flag, the `--config` flag will overwrite any last-known configuration.
 

@@ -1,0 +1,6 @@
+#Defaults for caddy.service
+
+CONFIGFILE=/etc/caddy/Caddyfile
+
+#To add --resume, uncomment the line below:
+# EXTRA_PARAMS="--resume"

@@ -1,6 +1,6 @@
 # caddy.service
 #
-# For using Caddy with a config file.
+# For using Caddy with a config file specified in /etc/default/caddy
 #
 # Make sure the ExecStart and ExecReload commands are correct
 # for your installation.
@@ -10,8 +10,9 @@
 # WARNING: This service does not use the --resume flag, so if you
 # use the API to make changes, they will be overwritten by the
 # Caddyfile next time the service is restarted. If you intend to
-# use Caddy's API to configure it, add the --resume flag to the
-# `caddy run` command or use the caddy-api.service file instead.
+# use Caddy's API to configure it, add the --resume flag to
+# EXTRA_PARAMS in /etc/default/caddy
+# or use the caddy-api.service file instead.
 
 [Unit]
 Description=Caddy
@@ -22,8 +23,9 @@ Requires=network-online.target
 [Service]
 User=caddy
 Group=caddy
-ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile
-ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile
+EnvironmentFile=/etc/default/caddy
+ExecStart=/usr/bin/caddy run --environ --config $CONFIGFILE $EXTRA_PARAMS
+ExecReload=/usr/bin/caddy reload --config $CONFIGFILE $EXTRA_PARAMS
 TimeoutStopSec=5s
 LimitNOFILE=1048576
 LimitNPROC=512

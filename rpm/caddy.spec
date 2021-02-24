@@ -22,6 +22,7 @@ Source0:        https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/cmd/c
 # https://github.com/caddyserver/dist
 Source1:        https://raw.githubusercontent.com/caddyserver/dist/master/config/Caddyfile
 Source2:        https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.service
+Source7:        https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy-defaults
 Source3:        https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy-api.service
 Source4:        https://raw.githubusercontent.com/caddyserver/dist/master/welcome/index.html
 Source5:        https://raw.githubusercontent.com/caddyserver/dist/master/scripts/completions/bash-completion
@@ -77,6 +78,9 @@ install -D -p -m 0755 caddy %{buildroot}%{_bindir}/caddy
 
 # config
 install -D -p -m 0644 %{S:1} %{buildroot}%{_sysconfdir}/caddy/Caddyfile
+
+# /etc/defaults/caddy for the caddy.service:
+install -D -p -m 0644 %{S:7} %{buildroot}%{_sysconfdir}/default/caddy
 
 # systemd units
 install -D -p -m 0644 %{S:2} %{buildroot}%{_unitdir}/caddy.service
@@ -142,6 +146,7 @@ if [ $1 -eq 0 ]; then
         semanage fcontext --delete --type httpd_exec_t        '%{_bindir}/caddy'               2> /dev/null || :
         semanage fcontext --delete --type httpd_sys_content_t '%{_datadir}/caddy(/.*)?'        2> /dev/null || :
         semanage fcontext --delete --type httpd_config_t      '%{_sysconfdir}/caddy(/.*)?'     2> /dev/null || :
+        semanage fcontext --delete --type httpd_config_t      '%{_sysconfdir}/default/caddy'     2> /dev/null || :
         semanage fcontext --delete --type httpd_var_lib_t     '%{_sharedstatedir}/caddy(/.*)?' 2> /dev/null || :
         # QUIC
         semanage port     --delete --type http_port_t --proto udp 80   2> /dev/null || :
