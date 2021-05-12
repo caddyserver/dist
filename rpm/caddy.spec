@@ -31,7 +31,7 @@ Source6:        https://raw.githubusercontent.com/caddyserver/dist/master/script
 Source10:       https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/LICENSE
 
 # https://github.com/caddyserver/caddy/commit/e4ec08e977bcc9c798a2fca324c7105040990bcf
-BuildRequires:  golang >= 1.14
+BuildRequires:  golang >= 1.15
 BuildRequires:  git-core
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  systemd
@@ -63,6 +63,7 @@ export GOPROXY='https://proxy.golang.org,direct'
 
 go mod init caddy
 echo "require github.com/caddyserver/caddy/v2 %{tag}" >> go.mod
+go mod tidy
 go build \
     -buildmode pie \
     -compiler gc \
