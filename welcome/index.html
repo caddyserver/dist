@@ -258,12 +258,15 @@
 		</div>
 
 		<footer>
-			&copy; Copyright 2021 The Caddy Authors.
+			&copy; Copyright <span id="current_year">2021</span> The Caddy Authors.
 			<br>
 			Caddy<sup>&reg;</sup> is a registered trademark of Light Code Labs, LLC.
 
 			<div id="disclaimer">The Caddy project is not responsible for the content, disposition, or behavior of this Web property, which is independently owned and maintained. For inquiries, please contact the site owner or hosting provider.</div>
 		</footer>
 
+		<script>
+			document.getElementById("current_year").textContent = new Date().getFullYear();
+		</script>
 	</body>
 </html>
