@@ -1,0 +1,27 @@
+name: Release Tagged
+
+on:
+  repository_dispatch:
+    types: [release-tagged]
+
+jobs:
+  release-tagged:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - name: Tag and push
+        env:
+          TAG: ${{ github.event.client_payload.tag }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # to indicate the email address is deliberately empty
+          git config --global user.email "GitHub Action <>"
+          git config --global user.name "GitHub Action"
+          git tag -a ${TAG} -m "${TAG}"
+          git push origin ${TAG}
+         
