@@ -12,7 +12,7 @@ These distributions are endorsed and maintained by the Caddy project:
 - [GitHub releases](https://github.com/caddyserver/caddy/releases)
 - [Docker](https://hub.docker.com/_/caddy)
 - [Fedora COPR](https://copr.fedorainfracloud.org/coprs/g/caddy/caddy/)
-- [Debian](https://gemfury.com/caddy/deb:caddy)
+- [Debian (hosting provided by Cloudsmith)](https://cloudsmith.io/~caddy/repos/)
 - [DigitalOcean](https://marketplace.digitalocean.com/apps/caddy)
 
 
