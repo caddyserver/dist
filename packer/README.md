@@ -7,12 +7,12 @@ This helps build the DigitalOcean droplet image for their marketplace.
 
 - Packer 1.6 or newer
 - Ansible
-- The latest tags from the `caddyserver/caddy` repo (`git fetch --tags`)
 
 To run the script:
 
 ```bash
-DIGITALOCEAN_TOKEN=foobar packer build do-marketplace-image.json
+packer init
+DIGITALOCEAN_TOKEN=foobar packer build do-marketplace-image.json.pkr.hcl
 ```
 
 Be sure to replace `foobar` with your DigitalOcean API key.
