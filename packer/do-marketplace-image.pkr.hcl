@@ -46,7 +46,11 @@ build {
   sources = ["source.digitalocean.caddy_image"]
 
   provisioner "shell" {
-    scripts = ["scripts/00-base.sh", "scripts/10-firewall.sh", "scripts/20-caddy.sh"]
+    scripts = [
+      "scripts/00-base.sh",
+      "scripts/10-firewall.sh",
+      "scripts/20-caddy.sh"
+    ]
   }
 
   provisioner "file" {
@@ -61,6 +65,11 @@ build {
   }
 
   provisioner "shell" {
-    scripts = ["scripts/50-services.sh", "scripts/90-cleanup.sh", "scripts/95-prep.sh", "scripts/99-img_check.sh"]
+    scripts = [
+      "scripts/50-services.sh",
+      "scripts/90-cleanup.sh",
+      "scripts/95-prep.sh",
+      "scripts/99-img_check.sh"
+    ]
   }
 }

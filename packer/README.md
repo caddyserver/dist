@@ -12,7 +12,7 @@ To run the script:
 
 ```bash
 packer init
-DIGITALOCEAN_TOKEN=foobar packer build do-marketplace-image.json.pkr.hcl
+DIGITALOCEAN_TOKEN=foobar packer build do-marketplace-image.pkr.hcl
 ```
 
 Be sure to replace `foobar` with your DigitalOcean API key.
