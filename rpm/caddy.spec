@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 
-%global basever 2.4.3
+%global basever 2.4.5
 #global prerel rc
 #global prerelnum 3
 %global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
@@ -30,8 +30,8 @@ Source6:        https://raw.githubusercontent.com/caddyserver/dist/master/script
 # pull in the license file.
 Source10:       https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/LICENSE
 
-# https://github.com/caddyserver/caddy/commit/e4ec08e977bcc9c798a2fca324c7105040990bcf
-BuildRequires:  golang >= 1.15
+# https://github.com/caddyserver/caddy/commit/6bc87ea2ff50a962f16dfafeb125f0f947c1a885
+BuildRequires:  golang >= 1.16
 BuildRequires:  git-core
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  systemd
@@ -171,6 +171,9 @@ fi
 
 
 %changelog
+* Tue Oct 26 2021 Carl George <carl@george.computer> - 2.4.5-1
+- Latest upstream
+
 * Thu Jun 17 2021 Carl George <carl@george.computer> - 2.4.3-1
 - Latest upstream
 
