@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 
-%global basever 2.4.6
+%global basever 2.5.0
 #global prerel rc
 #global prerelnum 3
 %global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
@@ -53,6 +53,9 @@ cp %{S:0} %{S:10} .
 
 
 %build
+# https://pagure.io/go-rpm-macros/c/1cc7f5d9026175bb6cb1b8c889355d0c4fc0e40a
+%undefine _auto_set_build_flags
+
 # Fedora diverges from upstream Go by disabling the proxy server.  Some of
 # Caddy's dependencies reference commits that are no longer upstream, but are
 # cached in the proxy.  As long as we are downloading dependencies during the
@@ -69,7 +72,7 @@ go build \
     -compiler gc \
     %{!?suse_version: -tags="rpm_crashtraceback ${BUILDTAGS:-}"} \
     -ldflags "${LDFLAGS:-} -B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \n')%{?__global_ldflags: -extldflags '%__global_ldflags'}" \
-    -a -v
+    -a -v -x
 
 
 %install
@@ -171,6 +174,9 @@ fi
 
 
 %changelog
+* Thu May 05 2022 Carl George <carl@george.computer> - 2.5.0-1
+- Latest upstream
+
 * Mon Nov 08 2021 Neal Gompa <ngompa13@gmail.com> - 2.4.6-1
 - Latest upstream
 
