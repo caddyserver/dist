@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 
-%global basever 2.5.2
+%global basever 2.6.0
 #global prerel rc
 #global prerelnum 3
 %global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
@@ -24,14 +24,12 @@ Source1:        https://raw.githubusercontent.com/caddyserver/dist/master/config
 Source2:        https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.service
 Source3:        https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy-api.service
 Source4:        https://raw.githubusercontent.com/caddyserver/dist/master/welcome/index.html
-Source5:        https://raw.githubusercontent.com/caddyserver/dist/master/scripts/completions/bash-completion
-Source6:        https://raw.githubusercontent.com/caddyserver/dist/master/scripts/completions/_caddy
 # Since we are not using a traditional source tarball, we need to explicitly
 # pull in the license file.
 Source10:       https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/LICENSE
 
-# https://github.com/caddyserver/caddy/commit/6bc87ea2ff50a962f16dfafeb125f0f947c1a885
-BuildRequires:  golang >= 1.16
+# https://github.com/caddyserver/caddy/commit/141872ed80d6323505e7543628c259fdae8506d3
+BuildRequires:  golang >= 1.18
 BuildRequires:  git-core
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  systemd
@@ -93,8 +91,13 @@ install -d -m 0750 %{buildroot}%{_sharedstatedir}/caddy
 install -D -p -m 0644 %{S:4} %{buildroot}%{_datadir}/caddy/index.html
 
 # shell completion
-install -D -p -m 0644 %{S:5} %{buildroot}%{_datadir}/bash-completion/completions/caddy
-install -D -p -m 0644 %{S:6} %{buildroot}%{_datadir}/zsh/site-functions/_caddy
+install -d -m 0755 %{buildroot}%{_datadir}/bash-completion/completions
+./caddy completion bash > %{buildroot}%{_datadir}/bash-completion/completions/caddy
+install -d -m 0755 %{buildroot}%{_datadir}/zsh/site-functions
+./caddy completion zsh  > %{buildroot}%{_datadir}/zsh/site-functions/_caddy
+
+# man pages
+./caddy manpage --directory %{buildroot}%{_mandir}/man8/
 
 
 %pre
@@ -171,9 +174,13 @@ fi
 %dir %{_datadir}/zsh
 %dir %{_datadir}/zsh/site-functions
 %{_datadir}/zsh/site-functions/_caddy
+%{_mandir}/man8/caddy*.8*
 
 
 %changelog
+* Wed Sep 21 2022 Carl George <carl@george.computer> - 2.6.0-1
+- Latest upstream
+
 * Tue Aug 09 2022 Carl George <carl@george.computer> - 2.5.2-1
 - Latest upstream
 
