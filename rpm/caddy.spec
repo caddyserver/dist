@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 
-%global basever 2.6.0
+%global basever 2.6.1
 #global prerel rc
 #global prerelnum 3
 %global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
@@ -178,6 +178,9 @@ fi
 
 
 %changelog
+* Thu Sep 22 2022 Carl George <carl@george.computer> - 2.6.1-1
+- Latest upstream
+
 * Wed Sep 21 2022 Carl George <carl@george.computer> - 2.6.0-1
 - Latest upstream
 
