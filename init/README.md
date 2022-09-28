@@ -12,9 +12,11 @@ See our website for [installation instructions](https://caddyserver.com/docs/ins
 
 ## Prerequisites
 
-Running Caddy as a systemd service requires the following:
+Caddy runs best on modern Linux distributions with
+[systemd](https://systemd.io).
 
-
+<details>
+  <summary>If you are using an older distribution release such as CentOS 7, see these instructions for the extra prerequisites</summary>
 Group named `caddy`:
 
 ```bash
@@ -32,7 +34,7 @@ $ useradd --system \
     --comment "Caddy web server" \
     caddy
 ```
-
+</details>
 
 ## Choosing a service file
 

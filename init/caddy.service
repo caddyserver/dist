@@ -32,5 +32,13 @@ PrivateTmp=true
 ProtectSystem=full
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 
+# systemd dynamic user support, remove this if you use an ancient distro
+DynamicUser=yes
+DynamicGroup=yes
+StateDirectory=caddy
+LogsDirectory=caddy
+CacheDirectory=caddy
+Environment=HOME=/var/lib/private/caddy
+
 [Install]
 WantedBy=multi-user.target
