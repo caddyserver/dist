@@ -1,0 +1,103 @@
+---
+- name: Setup the Server for CI Use
+  gather_facts: true
+  hosts: all
+  collections:
+    - devsec.hardening
+  vars:
+    ssh_print_motd: true
+    sysctl_overwrite:
+      net.ipv6.conf.all.disable_ipv6: 0
+      # Enable IPv4 traffic forwarding for Docker use-cases
+      net.ipv4.ip_forward: 1
+    ufw_manage_defaults: false
+    os_filesystem_whitelist: "vfat" # the EFI partition is formatted with this filesystem
+    ssh_permit_root_login: "no"
+    ssh_max_auth_retries: 100
+
+
+  tasks:
+    - name: Update repository and Upgrade packages
+      apt:
+        upgrade: dist
+        update_cache: yes
+    - import_role:
+        name: ssh_hardening
+
+    - name: Allow incoming ssh
+      community.general.ufw:
+        state: enabled
+        port: '22'
+        direction: in
+        rule: allow
+
+    - name: Allow outgoing traffic
+      community.general.ufw:
+        state: enabled
+        direction: outgoing
+        policy: allow
+
+    - name: Deny incoming traffic
+      community.general.ufw:
+        state: enabled
+        direction: incoming
+        policy: deny
+
+    - name: Install fail2ban and unattended upgrades
+      apt:
+        autoclean: yes
+        autoremove: yes
+        pkg:
+        - fail2ban
+        - unattended-upgrades
+
+    - name: Configure unattended upgrades
+      ansible.builtin.copy:
+        backup: yes
+        src:  "{{ item }}"
+        dest: /etc/apt/apt.conf.d/
+        owner: root
+        group: root
+        mode: "0644"
+      with_fileglob:
+        - etc/apt/apt.conf.d/20auto-upgrades
+        - etc/apt/apt.conf.d/50unattended-upgrades
+        
+    - name: Configure fail2ban
+      ansible.builtin.copy:
+        dest: /etc/fail2ban/jail.local
+        src: files/fail2ban/jail.local
+        owner: root
+        group: root
+        mode: "0644"
+      
+    - name: Enable fail2ban
+      ansible.builtin.systemd:
+        daemon_reload: yes
+        enabled: true
+        state: started
+        name: fail2ban
+
+    - name: Create User for CI
+      user:
+        name: "{{ciuser}}"
+        comment: CI user
+        shell: /bin/bash
+        create_home: true # home will used for Go build and module caches
+        home: "/home/{{ciuser}}"
+        system: false
+
+    - name: Set authorized key taken from file
+      authorized_key:
+        user: "{{ciuser}}"
+        state: present
+        key: "{{ lookup('file', ci_user_pubkey) }}"
+    
+    - name: Install Go
+      community.general.snap:
+        name: go
+        classic: true
+        state: present
+
+    - import_role:
+        name: os_hardening

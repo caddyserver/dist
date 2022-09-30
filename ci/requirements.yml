@@ -1,0 +1,4 @@
+---
+collections: 
+  - name: devsec.hardening
+    version: 8.2.0

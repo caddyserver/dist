@@ -1,0 +1,5 @@
+[ci_domains]
+ci-s390x.caddyserver.com
+
+[ci_ip]
+148.100.85.219
