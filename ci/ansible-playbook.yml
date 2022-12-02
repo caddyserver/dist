@@ -86,6 +86,7 @@
         create_home: true # home will used for Go build and module caches
         home: "/home/{{ciuser}}"
         system: false
+        expires: -1
 
     - name: Set authorized key taken from file
       authorized_key:
