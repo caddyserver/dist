@@ -25,6 +25,7 @@ User=caddy
 Group=caddy
 ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile
 ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile --force
+ExecStop=/usr/bin/caddy stop
 TimeoutStopSec=5s
 LimitNOFILE=1048576
 LimitNPROC=512
