@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 
-%global basever 2.6.2
+%global basever 2.6.4
 #global prerel rc
 #global prerelnum 3
 %global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
@@ -178,6 +178,9 @@ fi
 
 
 %changelog
+* Thu Feb 16 2023 Carl George <carl@george.computer> - 2.6.4-1
+- Update to version 2.6.4
+
 * Sun Nov 06 2022 Carl George <carl@george.computer> - 2.6.2-1
 - Update to version 2.6.2
 
