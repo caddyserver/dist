@@ -8,7 +8,7 @@
 Name:           caddy
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_versioning_prereleases_with_tilde
 Version:        %{basever}%{?prerel:~%{prerel}%{prerelnum}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        ASL 2.0
 URL:            https://caddyserver.com
@@ -178,6 +178,9 @@ fi
 
 
 %changelog
+* Sat Feb 18 2023 Carl George <carl@george.computer> - 2.6.4-2
+- Remove PrivateDevices setting in unit file to allow starting with SELinux enforcing
+
 * Thu Feb 16 2023 Carl George <carl@george.computer> - 2.6.4-1
 - Update to version 2.6.4
 
