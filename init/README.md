@@ -65,4 +65,4 @@ To keep our unit files tidy, we haven't littered them with comments. So here we 
 - **`LimitNPROC=512`** raises the number of threads caddy is allowed to have (`ulimit -u`). Obviously, setting this too low for a highly concurrent server is a bad idea.
 - **`PrivateTmp=true`** keeps /tmp and /var/tmp private, which are discarded after caddy stops.
 - **`ProtectSystem=full`** allows writing to /var, which is crucial so that it can store certificates and other data for your site.
-- **`AmbientCapabilities=CAP_NET_BIND_SERVICE`** allows caddy to bind to low ports (< 1024) without running as root.
+- **`AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE`** allows caddy to modify socket options and bind to low ports (< 1024) without running as root.
