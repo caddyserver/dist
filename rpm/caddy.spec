@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 
-%global basever 2.7.2
+%global basever 2.7.3
 #global prerel rc
 #global prerelnum 3
 %global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
@@ -182,6 +182,9 @@ fi
 
 
 %changelog
+* Tue Aug 08 2023 Carl George <carl@george.computer> - 2.7.3-1
+- Update to version 2.7.3
+
 * Thu Aug 03 2023 Carl George <carl@george.computer> - 2.7.2-1
 - Update to version 2.7.2
 - Add fish shell completions
