@@ -1,13 +1,7 @@
 %global debug_package %{nil}
 
-%global basever 2.7.3
-#global prerel rc
-#global prerelnum 3
-%global tag v%{basever}%{?prerel:-%{prerel}.%{prerelnum}}
-
 Name:           caddy
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_versioning_prereleases_with_tilde
-Version:        %{basever}%{?prerel:~%{prerel}%{prerelnum}}
+Version:        2.7.4
 Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        Apache-2.0
@@ -17,7 +11,7 @@ URL:            https://caddyserver.com
 # go module.  To do that, we are going to forgo the traditional source tarball
 # and instead use just this file from upstream.  This method requires that we
 # allow networking in the build environment.
-Source0:        https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/cmd/caddy/main.go
+Source0:        https://raw.githubusercontent.com/caddyserver/caddy/v%{version}/cmd/caddy/main.go
 # Use official resources for config, unit file, and welcome page.
 # https://github.com/caddyserver/dist
 Source10:       https://raw.githubusercontent.com/caddyserver/dist/master/config/Caddyfile
@@ -26,7 +20,7 @@ Source21:       https://raw.githubusercontent.com/caddyserver/dist/master/init/c
 Source30:       https://raw.githubusercontent.com/caddyserver/dist/master/welcome/index.html
 # Since we are not using a traditional source tarball, we need to explicitly
 # pull in the license file.
-Source90:       https://raw.githubusercontent.com/caddyserver/caddy/%{tag}/LICENSE
+Source90:       https://raw.githubusercontent.com/caddyserver/caddy/v%{version}/LICENSE
 
 # https://github.com/caddyserver/caddy/commit/f45a6de20dd19e82e58c85b37e03957b2203b544
 BuildRequires:  golang >= 1.20
@@ -68,7 +62,7 @@ export GOPROXY='https://proxy.golang.org,direct'
 export GOSUMDB='sum.golang.org'
 
 go mod init caddy
-echo "require github.com/caddyserver/caddy/v2 %{tag}" >> go.mod
+echo "require github.com/caddyserver/caddy/v2 v%{version}" >> go.mod
 go mod tidy
 go build \
     -buildmode pie \
