@@ -17,6 +17,7 @@ Source0:        https://raw.githubusercontent.com/caddyserver/caddy/v%{version}/
 Source10:       https://raw.githubusercontent.com/caddyserver/dist/master/config/Caddyfile
 Source20:       https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.service
 Source21:       https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy-api.service
+Source22:       https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.sysusers
 Source30:       https://raw.githubusercontent.com/caddyserver/dist/master/welcome/index.html
 # Since we are not using a traditional source tarball, we need to explicitly
 # pull in the license file.
@@ -86,6 +87,9 @@ install -D -p -m 0644 %{S:10} %{buildroot}%{_sysconfdir}/caddy/Caddyfile
 install -D -p -m 0644 %{S:20} %{buildroot}%{_unitdir}/caddy.service
 install -D -p -m 0644 %{S:21} %{buildroot}%{_unitdir}/caddy-api.service
 
+# sysusers
+install -D -p -m 0644 %{S:22} %{buildroot}%{_sysusersdir}/caddy.conf
+
 # data directory
 install -d -m 0750 %{buildroot}%{_sharedstatedir}/caddy
 
@@ -102,11 +106,7 @@ install -d -m 0755 %{buildroot}%{_datadir}/fish/vendor_completions.d
 
 
 %pre
-getent group caddy &> /dev/null || \
-groupadd -r caddy &> /dev/null
-getent passwd caddy &> /dev/null || \
-useradd -r -g caddy -d %{_sharedstatedir}/caddy -s /sbin/nologin -c 'Caddy web server' caddy &> /dev/null
-exit 0
+%sysusers_create_package %{name} %{S:22}
 
 
 %post
@@ -167,6 +167,7 @@ fi
 %{_datadir}/caddy
 %{_unitdir}/caddy.service
 %{_unitdir}/caddy-api.service
+%{_sysusersdir}/caddy.conf
 %dir %{_sysconfdir}/caddy
 %config(noreplace) %{_sysconfdir}/caddy/Caddyfile
 %attr(0750,caddy,caddy) %dir %{_sharedstatedir}/caddy
