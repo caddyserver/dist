@@ -106,7 +106,11 @@ install -d -m 0755 %{buildroot}%{_datadir}/fish/vendor_completions.d
 
 
 %pre
+%if 0%{?el7}
+%sysusers_create_compat %{S:22}
+%else
 %sysusers_create_package %{name} %{S:22}
+%endif
 
 
 %post
