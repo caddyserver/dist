@@ -26,11 +26,7 @@ Source90:       https://raw.githubusercontent.com/caddyserver/caddy/v%{version}/
 # https://github.com/caddyserver/caddy/commit/f45a6de20dd19e82e58c85b37e03957b2203b544
 BuildRequires:  golang >= 1.20
 BuildRequires:  git-core
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires:  systemd
-%else
 BuildRequires:  systemd-rpm-macros
-%endif
 %{?systemd_requires}
 Provides:       webserver
 
