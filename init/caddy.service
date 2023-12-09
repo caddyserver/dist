@@ -24,6 +24,7 @@ Type=notify
 User=caddy
 Group=caddy
 RuntimeDirectory=caddy
+LogsDirectory=caddy
 ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile
 ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile --force
 TimeoutStopSec=5s
