@@ -19,4 +19,8 @@ if [ "$1" = "purge" ]; then
 		deb-systemd-helper unmask caddy.service >/dev/null || true
 		deb-systemd-helper unmask caddy-api.service >/dev/null || true
 	fi
+	# 'purge' is not supposed to leave package files behind,
+	# so remove the user along with other dirs.
+	userdel -r caddy || true
+	rm -rf /var/lib/caddy /var/log/caddy /etc/caddy
 fi

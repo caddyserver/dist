@@ -57,6 +57,7 @@ export GOPROXY='https://proxy.golang.org,direct'
 # variable to be set for the build to work correctly.
 # https://github.com/golang/go/issues/60145#issuecomment-1547921152
 export GOSUMDB='sum.golang.org'
+export BUILDTAGS='%{!?suse_version:rpm_crashtraceback }nobadger'
 
 go mod init caddy
 echo "require github.com/caddyserver/caddy/v2 v%{version}" >> go.mod
@@ -64,7 +65,7 @@ go mod tidy
 go build \
     -buildmode pie \
     -compiler gc \
-    %{!?suse_version: -tags="rpm_crashtraceback ${BUILDTAGS:-}"} \
+    -tags="${BUILDTAGS}" \
     -ldflags "${LDFLAGS:-} -B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \n')%{?__global_ldflags: -extldflags '%__global_ldflags'}" \
     -a -v -x
 
