@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           caddy
-Version:        2.8.1
+Version:        2.8.4
 Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        Apache-2.0
