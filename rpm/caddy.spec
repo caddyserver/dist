@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           caddy
-Version:        2.9.1
+Version:        2.10.0
 Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 License:        Apache-2.0
@@ -23,11 +23,13 @@ Source30:       https://raw.githubusercontent.com/caddyserver/dist/master/welcom
 # pull in the license file.
 Source90:       https://raw.githubusercontent.com/caddyserver/caddy/v%{version}/LICENSE
 
-# https://github.com/caddyserver/caddy/commit/2028da4e74cd41f0f7f94222c6599da1a371d4b8
-BuildRequires:  golang >= 1.22.3
 BuildRequires:  git-core
 BuildRequires:  systemd-rpm-macros
 %{?systemd_requires}
+
+# https://github.com/caddyserver/caddy/commit/172136a0a0f6aa47be4eab3727fa2482d7af6617
+BuildRequires:  golang >= 1.24
+
 Provides:       webserver
 
 
