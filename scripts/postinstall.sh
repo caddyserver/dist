@@ -18,12 +18,6 @@ if [ "$1" = "configure" ]; then
 	if getent group www-data >/dev/null; then
 		usermod -aG www-data caddy
 	fi
-
-	# Add log directory with correct permissions
-	if [ ! -d /var/log/caddy ]; then
-		mkdir -p /var/log/caddy
-		chown -R caddy:caddy /var/log/caddy
-	fi
 fi
 
 if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
